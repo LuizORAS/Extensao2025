@@ -1,69 +1,53 @@
-# React + TypeScript + Vite
+# PlannerBarbeiro
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplicação inteligente para gestão de barbearia.
 
-Currently, two official plugins are available:
+## Descrição
+O PlannerBarbeiro é um sistema web moderno para organização, agendamento e controle de serviços em barbearias. Ele oferece uma interface intuitiva, visual atraente e recursos pensados para facilitar o dia a dia do barbeiro e do cliente.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Funcionalidades
+- Página de boas-vindas com imagem de fundo e destaque para o nome do sistema
+- Navegação entre páginas (Home, Serviços, Sobre, Contato, Perfil)
+- Layout responsivo com header fixo no topo e footer fixo na base
+- Botões de navegação e ações principais
+- Utilização de React, Vite e React Router DOM
 
-## Expanding the ESLint configuration
+## Como rodar o projeto
+1. Instale as dependências:
+   ```bash
+   npm install
+   ```
+2. Inicie o servidor de desenvolvimento:
+   ```bash
+   npm run dev
+   ```
+3. Acesse `http://localhost:5173` no navegador
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Estrutura de pastas
+```
+PlannerBarbeiro/
+  src/
+    Components/
+      Header.tsx
+      Footer.tsx
+      WelcomePage.tsx
+      ...
+    assets/
+      logoBarbeiros.png
+  index.html
+  package.json
+  README.md
+  ...
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Tecnologias
+- React
+- Vite
+- TypeScript
+- React Router DOM
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Autor
+LuizORAS
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+---
+© 2023 PlannerBarbeiro. Todos os direitos reservados.
