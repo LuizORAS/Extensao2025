@@ -12,7 +12,7 @@ const WelcomePage: React.FC = () => {
             <div className="welcome-overlay" />
             <div className="welcome-content">
                 <div className="welcome-title">Planejador de Barbeiros</div>
-                <div className="welcome-subtitle">Aplicação Inteligente para gestão de barbearia</div>
+                <div className="welcome-subtitle">Aplicação Inteligente para gestão de barbearia!</div>
                 <div className="welcome-buttons">
                     <button className="welcome-btn"><LuNotebookPen size={28}/> <br />Agendar</button>
                     <button className="welcome-btn"><FaMoneyBillTrendUp size={28}/> <br />Financeiro</button>
