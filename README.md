@@ -44,7 +44,7 @@ PlannerBarbeiro/
 - React
 - Vite
 - TypeScript
-- React Router DOM.
+- React Router DOM
 
 ## Autor
 LuizORAS
