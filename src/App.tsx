@@ -4,6 +4,8 @@ import './App.css';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import WelcomePage from './Components/WelcomePage';
 import AboutPage from './Components/AboutPage';
+import CalendarPage from './Components/CalendarPage';
+import SchedulePage from './Components/SchedulePage';
 
 function App() {
   return (
@@ -16,6 +18,8 @@ function App() {
           <Route path="/welcome" element={<WelcomePage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/profile" element={<div>Profile</div>} />
+          <Route path="/calendar" element={<CalendarPage />} />
+          <Route path="/schedule" element={<SchedulePage />} />
         </Routes>
       </div>
 
