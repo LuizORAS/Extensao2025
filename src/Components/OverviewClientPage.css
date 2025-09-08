@@ -1,0 +1,17 @@
+/* Styles for OverviewClientPage */
+.overview-client-container {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+
+
+.overview-client-btn {
+    margin-right: 10px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.overview-client-btn:last-child {
+    margin-right: 0;
+}

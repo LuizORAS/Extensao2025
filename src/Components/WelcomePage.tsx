@@ -18,8 +18,12 @@ const WelcomePage: React.FC = () => {
                 <div className="welcome-buttons">
                     <button className="welcome-btn" onClick={() => navigate('/calendar')}><FaCalendarAlt size={28}/> <br />Agendamentos</button>
                     <button className="welcome-btn" onClick={() => navigate('/schedule')}><LuNotebookPen size={28}/> <br />Agendar</button>
-                    <button className="welcome-btn"><FaMoneyBillTrendUp size={28}/> <br />Financeiro</button>
-                    <button className="welcome-btn"><BsPersonFillAdd size={28}/> <br />Clientes</button>
+                    <button className="welcome-btn" onClick={() => navigate('/financial')}><FaMoneyBillTrendUp size={28}/> <br />Financeiro</button>
+                    <button className="welcome-btn" onClick={() => navigate('/client')}><BsPersonFillAdd size={28}/> <br />Clientes</button>
+                </div>
+                <div className="welcome-links">
+                    <a href="/about" className="welcome-link">Sobre Nós</a>
+                    <a href="/contact" className="welcome-link">Contato</a>
                 </div>
             </div>
         </>

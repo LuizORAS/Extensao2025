@@ -11,11 +11,20 @@ const Header: React.FC = () => {
                 <Link to="/welcome"><img src={logoBarbeiros} alt="Logo"  height={70}/></Link>
             </div>
             <nav className="navbar">
-                <Link to="/welcome" className="nav-item">Home</Link>
-                <Link to="/services" className="nav-item">Services</Link>
-                <Link to="/about" className="nav-item">About</Link>
-                <Link to="/contact" className="nav-item">Contact</Link>
-                <Link to="/profile" className="nav-item">Profile</Link>
+                    <div className="navbar-boxes">
+                        <div className="navbar-box">
+                            <span>Agendamentos essa semana</span>
+                            <span className="navbar-counter">0</span>
+                        </div>
+                        <div className="navbar-box">
+                            <span>Faturamento esperado essa semana</span>
+                            <span className="navbar-counter">R$ 0,00</span>
+                        </div>
+                        <div className="navbar-box">
+                            <span>Faturamento total esse mês</span>
+                            <span className="navbar-counter">R$ 0,00</span>
+                        </div>
+                    </div>
             </nav>
             <div className="sidebar">
                 {/* <img
