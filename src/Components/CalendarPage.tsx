@@ -1,4 +1,6 @@
+
 import React from 'react';
+import './CalendarPage.css';
 
 // CalendarPage.tsx
 // Este componente servirá como a página principal para exibir o calendário de agendamentos do barbeiro.
@@ -6,10 +8,13 @@ import React from 'react';
 
 const CalendarPage: React.FC = () => {
     return (
-        <div>
-            <h1>Barber Appointment Calendar</h1>
-            <p>This page will display the calendar and allow users to manage appointments.</p>
-
+        <div className="calendar-page-container">
+            <div className="page-bg" />
+            <div className="page-overlay" />
+            <div className="calendar-page-content">
+                <h1>Barber Appointment Calendar</h1>
+                <p>This page will display the calendar and allow users to manage appointments.</p>
+            </div>
         </div>
     );
 };
