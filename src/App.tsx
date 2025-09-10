@@ -9,6 +9,7 @@ import SchedulePage from './Components/SchedulePage';
 import ContactPage from './Components/ContactPage';
 import OverviewFinancialPage from './Components/OverviewFinancialPage';
 import OverviewClientPage from './Components/OverviewClientPage';
+import SettingsPage from './Components/SettingsPage';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="/schedule" element={<SchedulePage />} />
           <Route path="/financial" element={<OverviewFinancialPage />} />
           <Route path="/client" element={<OverviewClientPage />} />
+          <Route path="/settings" element={<SettingsPage />} />
         </Routes>
       </div>
       <Footer />

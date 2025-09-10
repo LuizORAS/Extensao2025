@@ -10,7 +10,7 @@ O PlannerBarbeiro é um sistema web moderno para organização, agendamento e co
 - Navegação entre páginas (Home, Serviços, Sobre, Contato, Perfil)
 - Layout responsivo com header fixo no topo e footer fixo na base
 - Botões de navegação e ações principais
-- Utilização de React, Vite e React Router DOM.
+- Utilização de React, Vite e React Router DOM
 
 ## Como rodar o projeto
 1. Instale as dependências:
