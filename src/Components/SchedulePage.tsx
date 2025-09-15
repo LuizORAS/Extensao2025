@@ -5,8 +5,8 @@ import './SchedulePage.css';
 const SchedulePage: React.FC = () => {
     return (
         <div className="schedule-page-container">
-            <div className="page-bg" />
-            <div className="page-overlay" />
+            <div className="schedulepage-bg" />
+            <div className="schedulepage-overlay" />
             <div className="schedule-page-content">
                 <header>
                     <h1>Schedule Your Barber Appointment</h1>

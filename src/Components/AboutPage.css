@@ -1,4 +1,4 @@
-.page-bg {
+.aboutpage-bg {
     position: absolute;
     top: 0;
     left: 0;
@@ -10,7 +10,7 @@
     z-index: -1;
 }
 
-.page-overlay {
+.aboutpage-overlay {
     position: absolute;
     top: 0;
     left: 0;

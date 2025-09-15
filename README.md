@@ -12,16 +12,46 @@ O PlannerBarbeiro é um sistema web moderno para organização, agendamento e co
 - Botões de navegação e ações principais
 - Utilização de React, Vite e React Router DOM.
 
+
 ## Como rodar o projeto
+
+### Front-end
 1. Instale as dependências:
-   ```bash
-   npm install
-   ```
+  ```bash
+  npm install
+  ```
 2. Inicie o servidor de desenvolvimento:
-   ```bash
-   npm run dev
-   ```
+  ```bash
+  npm run dev
+  ```
 3. Acesse `http://localhost:5173` no navegador
+
+### Back-end (server)
+1. Acesse a pasta `server`:
+  ```bash
+  cd server
+  ```
+2. Instale as dependências do backend:
+  ```bash
+  npm install
+  ```
+3. Inicie o servidor de desenvolvimento:
+  ```bash
+  npm run dev
+  ```
+  O backend estará disponível em `http://localhost:4000`
+
+#### Banco de dados
+- O banco de dados é salvo no arquivo `server/dev.db` (SQLite).
+- Para transferir o backend para outro computador, basta copiar o arquivo `dev.db` junto com os arquivos do backend e rodar `npm install` e `npm run dev` na pasta `server`.
+
+#### Endpoints principais
+- `/api/clients` — Gerenciamento de clientes
+- `/api/appointments` — Agendamentos
+- `/api/budget` — Orçamentos
+- `/api/login` — Usuários/login
+
+---
 
 ## Estrutura de pastas
 ```

@@ -6,8 +6,8 @@ import './OverviewClientPage.css';
 const OverviewClientPage: React.FC = () => {
     return (
         <div className="client-page-container">
-            <div className="page-bg" />
-            <div className="page-overlay" />
+            <div className="overviewclientpage-bg" />
+            <div className="overviewclientpage-overlay" />
             <div className="client-page-content">
                 <h1>Client Dashboard</h1>
                 <p>Welcome! This page will display an overview of your clients.</p>

@@ -6,8 +6,8 @@ import './ContactPage.css';
 const ContactPage: React.FC = () => {
     return (
         <div className="contact-page-container">
-            <div className="page-bg" />
-            <div className="page-overlay" />
+            <div className="contactpage-bg" />
+            <div className="contactpage-overlay" />
             <div className="contact-page-content">
                 <div className="contact-title">Contato</div>
                 <div className="contact-text">

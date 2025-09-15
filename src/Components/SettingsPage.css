@@ -56,7 +56,7 @@
 .settings-select:focus {
     background: #151B23;
 }
-.page-bg {
+.settingspage-bg {
     position: absolute;
     top: 0;
     left: 0;
@@ -68,7 +68,7 @@
     z-index: -1;
 }
 
-.page-overlay {
+.settingspage-overlay {
     position: absolute;
     top: 0;
     left: 0;

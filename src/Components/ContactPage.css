@@ -1,4 +1,4 @@
-.page-bg {
+.contactpage-bg {
     position: absolute;
     top: 0;
     left: 0;
@@ -10,7 +10,7 @@
     z-index: -1;
 }
 
-.page-overlay {
+.contactpage-overlay {
     position: absolute;
     top: 0;
     left: 0;

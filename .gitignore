@@ -22,3 +22,10 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Backend/server ignores
+server/node_modules/
+server/*.log
+server/*.sqlite
+server/*.db
+server/.env

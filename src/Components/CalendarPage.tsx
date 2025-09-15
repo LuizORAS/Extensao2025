@@ -9,8 +9,8 @@ import './CalendarPage.css';
 const CalendarPage: React.FC = () => {
     return (
         <div className="calendar-page-container">
-            <div className="page-bg" />
-            <div className="page-overlay" />
+            <div className="calendarpage-bg" />
+            <div className="calendarpage-overlay" />
             <div className="calendar-page-content">
                 <h1>Barber Appointment Calendar</h1>
                 <p>This page will display the calendar and allow users to manage appointments.</p>

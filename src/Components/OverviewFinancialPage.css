@@ -18,7 +18,7 @@
     padding: 40px 20px;
     border-radius: 16px;
 }
-.page-bg {
+.overviewfinancialpage-bg {
     position: absolute;
     top: 0;
     left: 0;
@@ -30,7 +30,7 @@
     z-index: -1;
 }
 
-.page-overlay {
+.overviewfinancialpage-overlay {
     position: absolute;
     top: 0;
     left: 0;

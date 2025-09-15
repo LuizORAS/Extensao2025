@@ -5,8 +5,8 @@ import "./SettingsPage.css";
 const SettingsPage: React.FC = () => {
     return (
         <div className="settings-page-container">
-            <div className="page-bg" />
-            <div className="page-overlay" />
+            <div className="settingspage-bg" />
+            <div className="settingspage-overlay" />
             <div className="settings-page-content">
                 <h1>Settings</h1>
                 <div className="settings-content">

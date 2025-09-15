@@ -5,8 +5,8 @@ import './AboutPage.css';
 const AboutPage: React.FC = () => {
     return (
         <div className="about-page-container">
-            <div className="page-bg" />
-            <div className="page-overlay" />
+            <div className="aboutpage-bg" />
+            <div className="aboutpage-overlay" />
             <div className="about-page-content">
                 <h1>About Us</h1>
                 <p>Welcome to our application! This is a simple about page.</p>

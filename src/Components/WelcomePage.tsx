@@ -10,8 +10,8 @@ const WelcomePage: React.FC = () => {
     const navigate = useNavigate();
     return (
         <>
-            <div className="welcome-bg" />
-            <div className="welcome-overlay" />
+            <div className="welcomepage-bg" />
+            <div className="welcomepage-overlay" />
             <div className="welcome-content">
                 <div className="welcome-title">Planejador de Barbeiros</div>
                 <div className="welcome-subtitle">Aplicação Inteligente para gestão de barbearia!</div>

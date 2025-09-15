@@ -19,7 +19,7 @@
     border-radius: 16px;
     font-family: Arial, sans-serif;
 }
-.page-bg {
+.schedulepage-bg {
     position: absolute;
     top: 0;
     left: 0;
@@ -31,7 +31,7 @@
     z-index: -1;
 }
 
-.page-overlay {
+.schedulepage-overlay {
     position: absolute;
     top: 0;
     left: 0;
