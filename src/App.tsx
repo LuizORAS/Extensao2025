@@ -9,6 +9,8 @@ import SchedulePage from './Components/SchedulePage';
 import ContactPage from './Components/ContactPage';
 import OverviewFinancialPage from './Components/OverviewFinancialPage';
 import OverviewClientPage from './Components/OverviewClientPage';
+import AddClientPage from './Components/AddClientPage';
+import ViewClientPage from './Components/ViewClientPage';
 import SettingsPage from './Components/SettingsPage';
 
 function App() {
@@ -24,7 +26,10 @@ function App() {
           <Route path="/calendar" element={<CalendarPage />} />
           <Route path="/schedule" element={<SchedulePage />} />
           <Route path="/financial" element={<OverviewFinancialPage />} />
-          <Route path="/client" element={<OverviewClientPage />} />
+          <Route path="/client" element={<OverviewClientPage />}>
+            <Route path="add" element={<AddClientPage />} />
+            <Route path="view" element={<ViewClientPage />} />
+          </Route>
           <Route path="/settings" element={<SettingsPage />} />
         </Routes>
       </div>
