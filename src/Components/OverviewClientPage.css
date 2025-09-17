@@ -48,12 +48,25 @@
 
 
 
+
 .overview-client-btn {
-    margin-right: 10px;
-    padding: 10px 20px;
+    background: #151B23;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    padding: 24px 0;
+    width: 80%;
+    margin: 16px auto;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
     cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+    display: block;
 }
 
-.overview-client-btn:last-child {
-    margin-right: 0;
+.overview-client-btn:hover {
+    background: #010409;
+    color: #ffd700;
+    transform: scale(1.03);
 }
