@@ -26,11 +26,10 @@ function App() {
           <Route path="/calendar" element={<CalendarPage />} />
           <Route path="/schedule" element={<SchedulePage />} />
           <Route path="/financial" element={<OverviewFinancialPage />} />
-          <Route path="/client" element={<OverviewClientPage />}>
-            <Route path="add" element={<AddClientPage />} />
-            <Route path="view" element={<ViewClientPage />} />
-          </Route>
+          <Route path="/client" element={<OverviewClientPage />} />
           <Route path="/settings" element={<SettingsPage />} />
+          <Route path="/client/add" element={<AddClientPage />} />
+          <Route path="/client/view" element={<ViewClientPage />} />
         </Routes>
       </div>
       <Footer />
