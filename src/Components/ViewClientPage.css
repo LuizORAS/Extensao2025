@@ -1,13 +1,50 @@
 /* Estilo mínimo para ViewClientPage */
+.view-client-page-container {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.schedulepage-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('https://images.unsplash.com/photo-1503951914875-452162b0f3f1?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+  background-size: cover;
+  background-position: center;
+  z-index: -1;
+}
+
+.schedulepage-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 0;
+}
+
 .view-client-container {
-  background: rgba(45,55,72,0.7);
+  position: relative; /* garantir que fique acima do overlay */
+  z-index: 1;
+  background: #0f1724; /* tom opaco semelhante ao AddClient */
   color: #fff;
-  padding: 40px 24px;
-  border-radius: 16px;
-  max-width: 600px;
-  margin: 40px auto;
-  box-shadow: 0 2px 16px rgba(0,0,0,0.12);
+  padding: 34px 28px;
+  border-radius: 14px;
+  width: 92%;
+  max-width: 920px;
+  margin: 28px auto;
+  box-shadow: 0 10px 40px rgba(2,6,23,0.6);
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .view-client-container h2 {
   font-size: 2rem;
@@ -18,5 +55,48 @@
   margin-bottom: 0;
 }
 
-.client-list { display: flex; flex-direction: column; gap: 12px; margin-top: 16px }
-.client-row { background: rgba(0,0,0,0.25); padding: 12px; border-radius: 8px; color: #fff }
+.client-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 18px;
+  width: 100%;
+  max-height: 56vh; /* deixa uma barra de rolagem se muitos itens */
+  overflow-y: auto;
+  padding-right: 6px; /* espaço para scrollbar */
+}
+
+.client-row {
+  background: rgba(255,255,255,0.03); /* tom levemente mais claro que o fundo */
+  border: 1px solid rgba(255,255,255,0.03);
+  padding: 14px 12px;
+  border-radius: 10px;
+  color: #fff;
+}
+
+.client-row-main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.client-info { text-align: left; }
+.client-name { display: block; font-size: 1.05rem; margin-bottom: 6px; }
+.client-meta { color: rgba(255,255,255,0.66); font-size: 0.95rem; }
+
+.client-actions { display: flex; gap: 8px; align-items: center; }
+.btn { padding: 8px 12px; border-radius: 8px; border: none; cursor: pointer; font-weight: 600 }
+.btn-edit { background: linear-gradient(180deg,#5aa5ff 0%,#2176e6 100%); color: #06213a }
+.btn-delete { background: linear-gradient(180deg,#ff6b6b 0%,#e03434 100%); color: #230808 }
+
+/* scrollbar styling (WebKit) */
+.client-list::-webkit-scrollbar { width: 10px }
+.client-list::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.06); border-radius: 10px }
+
+@media (max-width: 720px) {
+  .view-client-container { padding: 20px 16px }
+  .client-list { max-height: 48vh }
+  .client-row-main { flex-direction: column; align-items: flex-start }
+  .client-actions { width: 100%; justify-content: flex-end }
+}

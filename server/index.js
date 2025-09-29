@@ -91,6 +91,25 @@ app.post('/api/appointments', (req, res) => {
   res.status(201).json(created);
 });
 
+app.put('/api/appointments/:id', (req, res) => {
+  const id = Number(req.params.id);
+  const { cliente, data, horario_inicio, horario_fim, valor_corte, servico, notas } = req.body;
+  db.prepare(`
+    UPDATE appointments
+    SET cliente = COALESCE(?, cliente),
+        data = COALESCE(?, data),
+        horario_inicio = COALESCE(?, horario_inicio),
+        horario_fim = COALESCE(?, horario_fim),
+        valor_corte = COALESCE(?, valor_corte),
+        servico = COALESCE(?, servico),
+        notas = COALESCE(?, notas)
+    WHERE id = ?
+  `).run(cliente, data, horario_inicio, horario_fim, valor_corte, servico, notas, id);
+  const updated = db.prepare('SELECT * FROM appointments WHERE id = ?').get(id);
+  if (!updated) return res.status(404).json({ message: 'Agendamento não encontrado' });
+  res.json(updated);
+});
+
 app.delete('/api/appointments/:id', (req, res) => {
   const id = Number(req.params.id);
   db.prepare('DELETE FROM appointments WHERE id = ?').run(id);

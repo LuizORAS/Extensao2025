@@ -1,13 +1,51 @@
 /* Estilo mínimo para AddClientPage */
+.add-client-page-container {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.schedulepage-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('https://images.unsplash.com/photo-1503951914875-452162b0f3f1?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+  background-size: cover;
+  background-position: center;
+  z-index: -1;
+}
+
+.schedulepage-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 0;
+}
+
 .add-client-container {
-  background: rgba(21,27,35,0.7);
+  /* Janela de formulário maior e opaca */
+  position: relative; /* trazer acima do overlay */
+  z-index: 1;
+  background: #0b1220; /* cor sólida, não transparente */
   color: #fff;
-  padding: 40px 24px;
-  border-radius: 16px;
-  max-width: 600px;
-  margin: 40px auto;
-  box-shadow: 0 2px 16px rgba(0,0,0,0.12);
-  text-align: center;
+  padding: 25px 10px;
+  border-radius: 14px;
+  width: 92%;
+  max-width: 780px; /* ocupa boa parte do pai */
+  margin: 28px auto;
+  box-shadow: 0 10px 40px rgba(2,6,23,0.6);
+  text-align: center; /* centralizar conteúdo */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .add-client-container h2 {
   font-size: 2rem;
@@ -21,24 +59,70 @@
 .add-client-form {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  margin-top: 12px;
+  gap: 12px;
+  margin-top: 18px;
+  align-items: center;
+  width: 100%;
 }
-.add-client-form input {
-  padding: 10px 12px;
-  border-radius: 8px;
+
+.add-client-form input,
+.add-client-form input[type="number"] {
+  width: 420px; /* campos mais estreitos */
+  padding: 12px 14px;
+  border-radius: 10px;
   border: 1px solid rgba(255,255,255,0.08);
-  background: rgba(0,0,0,0.25);
+  background: rgba(255,255,255,0.04);
   color: #fff;
+  font-size: 0.98rem;
+  outline: none;
+  transition: box-shadow 120ms ease, border-color 120ms ease, transform 120ms ease;
+  box-shadow: inset 0 -1px 0 rgba(255,255,255,0.02);
 }
-.add-client-form button {
-  padding: 10px 16px;
-  border-radius: 8px;
+
+.add-client-form input::placeholder {
+  color: rgba(255,255,255,0.54);
+}
+
+.add-client-form input:focus {
+  border-color: rgba(255,215,0,0.9);
+  box-shadow: 0 4px 18px rgba(255,215,0,0.06);
+  transform: translateY(-1px);
+}
+
+/* Make the submit button span full width of the form on the second column */
+.save-button {
+  padding: 12px 20px;
+  border-radius: 10px;
   border: none;
-  background: #ffd700;
-  color: #111;
-  font-weight: bold;
+  background: linear-gradient(180deg, #ffd447 0%, #f2b700 100%);
+  color: #0b1220;
+  font-weight: 700;
   cursor: pointer;
+  font-size: 1rem;
+  box-shadow: 0 8px 20px rgba(242,183,0,0.18);
+  width: 220px;
+  text-align: center;
+}
+
+.add-client-form button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* Single column on small screens */
+@media (max-width: 720px) {
+  .add-client-form {
+    align-items: stretch;
+    padding: 0 8px;
+  }
+  .add-client-container {
+    padding: 22px 18px;
+  }
+  .add-client-form input,
+  .add-client-form input[type="number"] {
+    width: 100%;
+    max-width: 100%;
+  }
 }
 .form-error { color: #ff6b6b; margin-top: 12px }
 .form-success { color: #7bd389; margin-top: 12px }
