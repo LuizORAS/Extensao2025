@@ -1,60 +1,44 @@
-.settings-page-content {
+.settings-page-card {
     position: relative;
     z-index: 1;
     width: 100%;
-    max-width: 500px;
-    background: rgba(21, 27, 35, 0.95);
+    max-width: 1000px;
+    background: rgba(7,12,18,0.96);
     color: #fff;
-    text-align: center;
-    padding: 48px 32px 32px 32px;
-    border-radius: 18px;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.18);
-    font-family: 'DM Sans', Arial, sans-serif;
+    text-align: left;
+    padding: 12px;
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(2,6,23,0.6);
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    gap: 12px;
 }
 
-.settings-page-content h1 {
-    font-size: 2.5rem;
-    font-weight: bold;
-    margin-bottom: 32px;
-    color: #ffd700;
-    letter-spacing: 1px;
+.settings-card-side {
+    width: 240px;
+    min-width: 180px;
+    border-right: 1px solid rgba(255,255,255,0.03);
+    padding: 14px;
 }
 
-.settings-content {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 28px;
-    align-items: center;
-}
+.settings-card-side h3 { margin: 0 0 12px 0; font-size: 1.1rem }
 
-.settings-label {
-    font-size: 1.25rem;
-    color: #fff;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-}
+.settings-options { list-style: none; padding: 0; margin: 0; }
+.settings-option { padding: 10px 8px; border-radius: 8px; margin-bottom: 6px; cursor: pointer; color: #cfd9e3 }
+.settings-option:hover { background: rgba(255,255,255,0.02); }
+.settings-option.active { background: linear-gradient(180deg,#111827, #0b1724); color: #fff; font-weight:600 }
 
-.settings-select {
-    font-size: 1.1rem;
-    padding: 8px 18px;
-    border-radius: 8px;
-    border: none;
-    background: #232A34;
-    color: #ffd700;
-    margin-top: 6px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.10);
-    outline: none;
-    transition: background 0.2s;
-}
+.settings-card-main { flex: 1; padding: 18px; min-height: 240px; }
+.settings-card-main h2 { margin-top: 0 }
 
-.settings-select:focus {
-    background: #151B23;
+.settings-content { width: 100%; display: flex; flex-direction: column; gap: 18px }
+
+.settings-label { font-size: 1rem; color: #fff; display: flex; flex-direction: column; gap: 8px }
+
+.settings-select { font-size: 1rem; padding: 8px 12px; border-radius: 8px; border: none; background: #232A34; color: #ffd700 }
+
+@media (max-width: 880px) {
+    .settings-page-card { flex-direction: column }
+    .settings-card-side { width: 100%; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.03) }
 }
 .settingspage-bg {
     position: absolute;
