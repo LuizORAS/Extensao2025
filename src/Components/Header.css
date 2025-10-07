@@ -50,6 +50,17 @@
     font-size: 0.9rem;
 }
 
+/* underline on hover for header options */
+.option:hover {
+    text-decoration: underline !important;
+    color: #ffd700;
+}
+
+/* ensure anchors inside auth-card also underline on hover */
+.auth-card a:hover {
+    text-decoration: underline !important;
+}
+
 .logo {
     margin-top: 5px;
     padding: 0;

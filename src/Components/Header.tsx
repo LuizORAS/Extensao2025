@@ -72,6 +72,9 @@ const Header: React.FC = () => {
                 <FaUserShield size={40} style={{ color: '#fff', marginLeft: '15px', marginRight: '10px', cursor: 'pointer' }}/>
                 <div className="options">
                     <Link to="/settings" className="option">Settings</Link>
+                    <Link to="/login" className="option">Login</Link>
+                    <Link to="/signup" className="option">Signup</Link>
+                    <Link to="/forgot-password" className="option">Forgot</Link>
                     <Link to="/logout" className="option">Logout</Link>
                 </div>
             </div>
