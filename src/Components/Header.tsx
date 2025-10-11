@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Header.css';
 import logoBarbeiros from '../assets/logoBarbeiros.png';
-import { FaUserShield } from "react-icons/fa";
+import { FaUserShield, FaChevronUp, FaChevronDown } from "react-icons/fa";
 
 const Header: React.FC = () => {
     const [countWeek, setCountWeek] = useState<number>(0);
     const [expectedWeekRevenue, setExpectedWeekRevenue] = useState<number>(0);
+    const [isOpen, setIsOpen] = useState<boolean>(false);
     const API_BASE = (import.meta as any).env?.VITE_API_URL || 'http://localhost:4000';
 
     const fetchCount = async () => {
@@ -47,6 +48,13 @@ const Header: React.FC = () => {
         return () => window.removeEventListener('appointments:changed', handler as EventListener);
     }, []);
 
+    // close dropdown when clicking outside
+    useEffect(() => {
+        const onDocClick = () => setIsOpen(false);
+        document.addEventListener('click', onDocClick);
+        return () => document.removeEventListener('click', onDocClick);
+    }, []);
+
     return (
         <header className="header">
             <div className="logo">
@@ -70,12 +78,29 @@ const Header: React.FC = () => {
             </nav>
             <div className="sidebar">
                 <FaUserShield size={40} style={{ color: '#fff', marginLeft: '15px', marginRight: '10px', cursor: 'pointer' }}/>
-                <div className="options">
-                    <Link to="/settings" className="option">Settings</Link>
-                    <Link to="/login" className="option">Login</Link>
-                    <Link to="/signup" className="option">Signup</Link>
-                    <Link to="/forgot-password" className="option">Forgot</Link>
-                    <Link to="/logout" className="option">Logout</Link>
+                <div className="options" id="header-options">
+                    {/* Dropdown trigger: shows up arrow when NOT clicked (default) and down arrow when clicked/open */}
+                    <button
+                        className="options-toggle"
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            setIsOpen(prev => !prev);
+                        }}
+                        aria-expanded={isOpen}
+                        aria-controls="options-menu"
+                    >
+                        <span className="options-label">Menu</span>
+                        {isOpen ? <FaChevronDown className="options-arrow" /> : <FaChevronUp className="options-arrow" />}
+                    </button>
+
+                    <div
+                        id="options-menu"
+                        className={`dropdown-menu ${isOpen ? 'open' : ''}`}
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        <Link to="/settings" className="dropdown-item" onClick={() => setIsOpen(false)}>Settings</Link>
+                        <Link to="/logout" className="dropdown-item" onClick={() => setIsOpen(false)}>Logout</Link>
+                    </div>
                 </div>
             </div>
         </header>
