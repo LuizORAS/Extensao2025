@@ -33,14 +33,14 @@
 .view-client-container {
   position: relative; /* garantir que fique acima do overlay */
   z-index: 1;
-  background: #0f1724; /* tom opaco semelhante ao AddClient */
-  color: #fff;
+  background: var(--card-bg);
+  color: var(--text);
   padding: 34px 28px;
   border-radius: 14px;
   width: 92%;
   max-width: 920px;
   margin: 28px auto;
-  box-shadow: 0 10px 40px rgba(2,6,23,0.6);
+  box-shadow: 0 10px 40px rgba(2,6,23,0.3);
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -71,7 +71,7 @@
   border: 1px solid rgba(255,255,255,0.03);
   padding: 14px 12px;
   border-radius: 10px;
-  color: #fff;
+  color: var(--text);
 }
 
 .client-row-main {
@@ -83,12 +83,12 @@
 
 .client-info { text-align: left; }
 .client-name { display: block; font-size: 1.05rem; margin-bottom: 6px; }
-.client-meta { color: rgba(255,255,255,0.66); font-size: 0.95rem; }
+.client-meta { color: var(--muted); font-size: 0.95rem; }
 
 .client-actions { display: flex; gap: 8px; align-items: center; }
 .btn { padding: 8px 12px; border-radius: 8px; border: none; cursor: pointer; font-weight: 600 }
-.btn-edit { background: linear-gradient(180deg,#5aa5ff 0%,#2176e6 100%); color: #06213a }
-.btn-delete { background: linear-gradient(180deg,#ff6b6b 0%,#e03434 100%); color: #230808 }
+.btn-edit { background: linear-gradient(180deg,var(--btn-accent-start, #5aa5ff) 0%, var(--btn-accent-end, #2176e6) 100%); color: var(--card-contrast, #06213a) }
+.btn-delete { background: linear-gradient(180deg,var(--btn-danger-start, #ff6b6b) 0%, var(--btn-danger-end, #e03434) 100%); color: var(--card-contrast, #230808) }
 
 /* scrollbar styling (WebKit) */
 .client-list::-webkit-scrollbar { width: 10px }

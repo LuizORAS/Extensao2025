@@ -18,15 +18,15 @@
 
 .calendar-card {
     position: relative; z-index: 1;
-    background: #0b1220; color: #fff;
+    background: var(--card-bg); color: var(--text);
     width: 92%; max-width: 980px; border-radius: 14px; padding: 28px; box-shadow: 0 10px 40px rgba(2,6,23,0.6);
     display: flex; flex-direction: column; gap: 12px;
 }
 
 .calendar-card-header { display: flex; align-items: center; justify-content: space-between; gap: 12px }
 .calendar-card-header h2 { margin: 0; }
-.filter-select { background: #0b1220; border: 1px solid rgba(255,255,255,0.06); color: #fff; padding: 8px 10px; border-radius: 8px }
-.filter-select option { background: #0b1220; color: #fff }
+.filter-select { background: var(--card-bg); border: 1px solid rgba(255,255,255,0.06); color: var(--text); padding: 8px 10px; border-radius: 8px }
+.filter-select option { background: var(--card-bg); color: var(--text) }
 
 .appointments-list { margin-top: 8px; max-height: 60vh; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; padding-right: 6px }
 .appointment-row { background: rgba(255,255,255,0.03); border-radius: 10px; padding: 12px; border: 1px solid rgba(255,255,255,0.03) }
@@ -40,8 +40,8 @@
 
 .appointment-actions { display:flex; gap:8px; align-items:center }
 .appt-btn { padding: 6px 10px; border-radius:8px; border:none; cursor:pointer; font-weight:600 }
-.appt-edit { background: linear-gradient(180deg,#5aa5ff 0%,#2176e6 100%); color: #06213a }
-.appt-delete { background: linear-gradient(180deg,#ff6b6b 0%,#e03434 100%); color: #230808 }
+.appt-edit { background: linear-gradient(180deg,var(--btn-accent-start, #5aa5ff) 0%, var(--btn-accent-end, #2176e6) 100%); color: var(--card-contrast, #06213a) }
+.appt-delete { background: linear-gradient(180deg,var(--btn-danger-start, #ff6b6b) 0%, var(--btn-danger-end, #e03434) 100%); color: var(--card-contrast, #230808) }
 
 /* responsive */
 @media (max-width:720px) {

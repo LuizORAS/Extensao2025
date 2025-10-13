@@ -3,16 +3,26 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 20px;
-    background-color: #010409;
-    color: #fff;
+    padding: 5px 20px 7px 20px;
+    background-color: var(--bg);
+    color: var(--text);
     z-index: 100;
     position: relative;
 }
 
 .logo {
-    font-size: 1.5rem;
+    font-size: 1.1rem;
     font-weight: bold;
+}
+
+.logo-panel {
+    background: var(--card-bg);
+    padding: 7px 0px 0px 0px;
+    border-radius: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(2,6,23,0.45);
 }
 
 .navbar {
@@ -21,7 +31,7 @@
 }
 
 .nav-item {
-    color: #fff;
+    color: var(--text);
     text-decoration: none;
     font-size: 1rem;
 }
@@ -30,6 +40,30 @@
     display: flex;
     align-items: center;
     gap: 10px;
+}
+
+.header-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-left: 12px;
+    margin-right: 12px;
+    cursor: pointer;
+    border: 2px solid rgba(255,255,255,0.06);
+}
+.header-profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-right: 8px;
+}
+.header-greeting {
+    font-size: 0.8rem;
+    color: var(--text);
+    opacity: 0.9;
+    margin-top: 4px;
 }
 
 .profile-pic {
@@ -46,7 +80,7 @@
 }
 
 .option {
-    color: #fff;
+    color: var(--text);
     text-decoration: none;
     font-size: 0.9rem;
 }
@@ -58,7 +92,7 @@
     gap: 8px;
     background: transparent;
     border: 1px solid rgba(255,255,255,0.12);
-    color: #fff;
+    color: var(--text);
     padding: 6px 10px;
     border-radius: 6px;
     cursor: pointer;
@@ -77,7 +111,7 @@
     right: 0;
     top: calc(100% + 8px);
     min-width: 140px;
-    background: #0b0f14;
+    background: var(--card-bg);
     border: 1px solid rgba(255,255,255,0.06);
     border-radius: 8px;
     box-shadow: 0 6px 18px rgba(2,6,23,0.6);
@@ -92,7 +126,7 @@
 }
 
 .dropdown-item {
-    color: #fff;
+    color: var(--text);
     padding: 8px 14px;
     text-decoration: none;
     font-size: 0.95rem;
@@ -100,13 +134,13 @@
 
 .dropdown-item:hover {
     background: rgba(255,255,255,0.03);
-    color: #ffd700;
+    color: var(--accent);
 }
 
 /* underline on hover for header options */
 .option:hover {
     text-decoration: underline !important;
-    color: #ffd700;
+    color: var(--accent);
 }
 
 /* ensure anchors inside auth-card also underline on hover */
@@ -114,13 +148,28 @@
     text-decoration: underline !important;
 }
 
+.header-greeting{
+    color: var(--text);
+    padding: 3px;
+}
+.options{
+    background-color: var(--card-bg);
+    border-radius: 8px;
+}
+.dropdown-item{
+    border-radius: 8px;
+}
+.dropdown-item:hover {
+    background: var(--bg);
+    color: var(--accent);
+}
 .logo {
     margin-top: 5px;
     padding: 0;
 }
 
 .logo:hover {
-    transform: scale(1.1);
+    transform: scale(1.05);
     transition: transform 0.9s;
     cursor: pointer;
 }
@@ -133,7 +182,7 @@
 
 
 .navbar-box {
-    background: #151B23;
+    background: var(--card-bg);
     border-radius: 8px;
     padding: 10px 18px;
     display: flex;
@@ -145,12 +194,12 @@
 
 .navbar-box span {
     font-size: 1rem;
-    color: #fff;
+    color: var(--text);
     margin-bottom: 4px;
 }
 
 .navbar-counter {
     font-size: 1.2rem;
     font-weight: bold;
-    color: #ffd700;
+    color: var(--accent);
 }

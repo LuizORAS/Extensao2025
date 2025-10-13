@@ -35,7 +35,7 @@
     width: 100%;
     max-width: 700px;
     background: transparent;
-    color: #fff;
+    color: var(--text);
     text-align: center;
     padding: 40px 20px;
     border-radius: 16px;

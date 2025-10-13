@@ -55,10 +55,69 @@ const Header: React.FC = () => {
         return () => document.removeEventListener('click', onDocClick);
     }, []);
 
+    // load local profile from localStorage (if user saved in Settings)
+    const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
+    const [profileName, setProfileName] = useState<string>('Usuário');
+    useEffect(() => {
+        try {
+            const raw = localStorage.getItem('app_user_profile');
+            if (raw) {
+                const obj = JSON.parse(raw);
+                if (obj?.avatarUrl) setAvatarUrl(obj.avatarUrl);
+                if (obj?.name) setProfileName(obj.name);
+            }
+        } catch (err) {
+            // ignore
+        }
+    }, []);
+
+    // listen for profile changes dispatched from Settings or other tabs
+    useEffect(() => {
+            const onProfileChanged = (e: Event) => {
+            // CustomEvent may have detail
+            try {
+                const detail = (e as CustomEvent).detail;
+                if (detail?.avatarUrl !== undefined) {
+                        setAvatarUrl(detail.avatarUrl ?? null);
+                        if (detail?.name !== undefined) setProfileName(detail.name ?? 'Usuário');
+                    return;
+                }
+            } catch (err) { /* ignore */ }
+
+            // fallback: re-read localStorage
+            try {
+                const raw = localStorage.getItem('app_user_profile');
+                if (raw) {
+                    const obj = JSON.parse(raw);
+                    setAvatarUrl(obj?.avatarUrl ?? null);
+                }
+            } catch (err) { /* ignore */ }
+        };
+
+                const onStorage = (e: StorageEvent) => {
+                    if (e.key === 'app_user_profile') {
+                        try {
+                            const obj = e.newValue ? JSON.parse(e.newValue) : null;
+                            setAvatarUrl(obj?.avatarUrl ?? null);
+                            if (obj?.name) setProfileName(obj.name);
+                        } catch (err) { /* ignore */ }
+                    }
+                };
+
+        window.addEventListener('profile:changed', onProfileChanged as EventListener);
+        window.addEventListener('storage', onStorage as EventListener);
+        return () => {
+            window.removeEventListener('profile:changed', onProfileChanged as EventListener);
+            window.removeEventListener('storage', onStorage as EventListener);
+        };
+    }, []);
+
     return (
         <header className="header">
             <div className="logo">
-                <Link to="/welcome"><img src={logoBarbeiros} alt="Logo"  height={70}/></Link>
+                <div className="logo-panel">
+                    <Link to="/welcome"><img src={logoBarbeiros} alt="Logo"  height={70}/></Link>
+                </div>
             </div>
             <nav className="navbar">
                     <div className="navbar-boxes">
@@ -77,7 +136,14 @@ const Header: React.FC = () => {
                     </div>
             </nav>
             <div className="sidebar">
-                <FaUserShield size={40} style={{ color: '#fff', marginLeft: '15px', marginRight: '10px', cursor: 'pointer' }}/>
+                <div className="header-profile">
+                    {avatarUrl ? (
+                        <img src={avatarUrl} alt="Avatar" className="header-avatar" />
+                    ) : (
+                        <FaUserShield size={40} style={{ color: '#fff', marginLeft: '15px', marginRight: '10px', cursor: 'pointer' }}/>
+                    )}
+                    <div className="header-greeting">Olá, {profileName}!</div>
+                </div>
                 <div className="options" id="header-options">
                     {/* Dropdown trigger: shows up arrow when NOT clicked (default) and down arrow when clicked/open */}
                     <button

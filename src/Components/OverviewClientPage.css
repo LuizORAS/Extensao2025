@@ -1,3 +1,4 @@
+/* No changes needed as there are no occurrences of color: #fff; */
 /* Split card choice styles */
 .split-choice-content {
     position: relative;
@@ -58,23 +59,23 @@
     cursor: pointer;
     font-size: 2.5rem;
     font-weight: bold;
-    color: #fff;
+    color: var(--text);
     background: transparent;
     filter: brightness(1);
 }
 
 .left-card {
-    border-right: 2px solid #111;
+    border-right: 2px solid rgba(0,0,0,0.25);
 }
 
 .right-card {
-    border-left: 2px solid #111;
+    border-left: 2px solid rgba(0,0,0,0.25);
 }
 
 .split-card.highlighted {
     background: rgba(45, 55, 72, 0.85);
     filter: brightness(1.3);
-    box-shadow: 0 0 32px #ffd70044;
+    box-shadow: 0 0 32px rgba(255,215,0,0.27);
 }
 
 .split-card.dimmed {
@@ -124,7 +125,7 @@
     width: 100%;
     max-width: 700px;
     background: transparent;
-    color: #fff;
+    color: var(--text);
     text-align: center;
     padding: 40px 20px;
     border-radius: 16px;
@@ -135,8 +136,8 @@
     font-family: Arial, sans-serif;
 }
 .overview-client-btn {
-    background: #151B23;
-    color: #fff;
+    background: var(--card-bg);
+    color: var(--text);
     border: none;
     border-radius: 8px;
     font-size: 1.5rem;
@@ -151,7 +152,7 @@
 }
 
 .overview-client-btn:hover {
-    background: #010409;
-    color: #ffd700;
+    background: var(--bg);
+    color: var(--accent);
     transform: scale(1.03);
 }

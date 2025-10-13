@@ -2,6 +2,33 @@
 EU VOU PREENCHER ISSO DEPOIS
 */
 
+/* Theme variables: default is dark theme */
+:root {
+    --bg: #05060a;
+    --card-bg: #0b0f14;
+    --muted: rgba(255, 255, 255, 0.6);
+    --text: #ffffff; /* Text color */
+    --accent: #ffd700;
+}
+
+/* Light theme */
+[data-theme="light"] {
+    --bg: #ffffff;
+    --card-bg: #909ebd;
+    --muted: rgba(0,0,0,0.6);
+    --text: #111827;
+    --accent: #1f2937; /* dark gray accent */
+}
+
+/* Slightly dark (blue-ish) theme */
+[data-theme="slight-dark"] {
+    --bg: #071428; /* dark blue */
+    --card-bg: #0f2a44;
+    --muted: rgba(255,255,255,0.8);
+    --text: #e6eef6;
+    --accent: #60a5fa; /* blue accent */
+}
+
 
 body, #root {
     height: 100vh;
@@ -55,7 +82,7 @@ body, #root {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    color: #fff;
+    color: var(--text);
     text-align: center;
     min-height: 80vh;
 }
@@ -84,12 +111,12 @@ body, #root {
     font-size: 1rem;
     border: none;
     border-radius: 25px;
-    background: #151B23;
-    color: #fff;
+    background: var(--card-bg);
+    color: var(--text);
     cursor: pointer;
     transition: background 0.2s;
 }
 
 .welcome-btn:hover {
-    background: #232A34;
+    background: var(--bg-secondary, #232A34);
 }

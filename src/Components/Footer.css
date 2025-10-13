@@ -1,7 +1,7 @@
 
 .footer {
-    background-color: #010409;
-    color: #fff;
+    background-color: var(--card-bg);
+    color: var(--text);
     text-align: center;
     padding: 10px 0;
     position: fixed;

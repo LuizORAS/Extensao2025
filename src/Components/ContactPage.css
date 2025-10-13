@@ -35,7 +35,7 @@
     width: 100%;
     max-width: 600px;
     background: transparent;
-    color: #fff;
+    color: var(--text);
     text-align: center;
     padding: 40px 20px;
     border-radius: 16px;
@@ -47,17 +47,17 @@
 }
 
 .contact-link {
-    color: #138064;
+    color: var(--accent);
     text-decoration: underline;
 }
 .contact-container {
     max-width: 600px;
     margin: auto;
-    background: #151B23;
+    background: var(--card-bg);
     border-radius: 16px;
     box-shadow: 0 2px 16px rgba(0,0,0,0.12);
     padding: 32px 28px;
-    color: #fff;
+    color: var(--text);
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -70,7 +70,7 @@
     font-size: 2.2rem;
     font-weight: bold;
     margin-bottom: 18px;
-    color: #ffffff;
+    color: var(--text);
 }
 
 .contact-text {
