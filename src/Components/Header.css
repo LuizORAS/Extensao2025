@@ -13,16 +13,27 @@
 .logo {
     font-size: 1.1rem;
     font-weight: bold;
-}
-
-.logo-panel {
-    background: var(--card-bg);
-    padding: 7px 0px 0px 0px;
-    border-radius: 10px;
-    display: inline-flex;
+    /* smaller bounding box for a more compact header */
+    width: 200px;    /* reduced width */
+    height: 48px;    /* reduced height */
+    display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 4px 12px rgba(2,6,23,0.45);
+}
+
+.header-logo {
+    max-height: 100%;
+    max-width: 100%;
+    width: auto;
+    height: auto;
+    display: block;
+    object-fit: contain;
+    transition: transform 160ms ease;
+}
+
+/* specific visual enlargement for the white logo variant (no layout shift) */
+.header-logo--white {
+    transform: scale(1.18); /* increased so the white logo appears larger */
 }
 
 .navbar {
@@ -169,8 +180,8 @@
 }
 
 .logo:hover {
-    transform: scale(1.05);
-    transition: transform 0.9s;
+    transform: translateY(-2px);
+    transition: transform 160ms ease;
     cursor: pointer;
 }
 

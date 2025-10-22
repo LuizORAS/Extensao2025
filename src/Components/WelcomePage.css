@@ -41,7 +41,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    color: var(--text);
+    color: white;
     text-align: center;
     min-height: 80vh;
 }
@@ -52,7 +52,7 @@
     border: none;
     border-radius: 25px;
     background: var(--card-bg);
-    color: var(--text);
+    color: white;
     cursor: pointer;
     transition: background 0.2s;
 }
@@ -80,7 +80,7 @@
 }
 
 .welcome-link {
-    color: var(--text);
+    color: white;
     text-decoration: underline;
     font-size: 1.6rem;
     cursor: pointer;

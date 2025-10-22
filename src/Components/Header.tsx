@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Header.css';
 import logoBarbeiros from '../assets/logoBarbeiros.png';
+import logoBarbeirosWhite from '../assets/logoBarbeiros-white.png';
 import { FaUserShield, FaChevronUp, FaChevronDown } from "react-icons/fa";
 
 const Header: React.FC = () => {
@@ -112,12 +113,32 @@ const Header: React.FC = () => {
         };
     }, []);
 
+    // theme-aware logo: read current theme from dataset or localStorage
+    const [theme, setTheme] = useState<string>(() => {
+        return (document.documentElement?.dataset?.theme as string) || localStorage.getItem('app_theme') || 'dark';
+    });
+
+    useEffect(() => {
+        const onStorage = (e: StorageEvent) => {
+            if (e.key === 'app_theme') setTheme(e.newValue ?? 'dark');
+        };
+        const observer = new MutationObserver(() => {
+            setTheme(document.documentElement?.dataset?.theme || localStorage.getItem('app_theme') || 'dark');
+        });
+        observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+        window.addEventListener('storage', onStorage);
+        return () => {
+            observer.disconnect();
+            window.removeEventListener('storage', onStorage);
+        };
+    }, []);
+
+    const logoSrc = theme === 'light' ? logoBarbeirosWhite : logoBarbeiros;
+
     return (
         <header className="header">
             <div className="logo">
-                <div className="logo-panel">
-                    <Link to="/welcome"><img src={logoBarbeiros} alt="Logo"  height={70}/></Link>
-                </div>
+                <Link to="/welcome"><img src={logoSrc} alt="Logo" className={`header-logo ${theme === 'light' ? 'header-logo--white' : ''}`} /></Link>
             </div>
             <nav className="navbar">
                     <div className="navbar-boxes">
