@@ -5,9 +5,7 @@ import "./SettingsPage.css";
 
 const OPTIONS = [
     { id: 'profile', label: 'Profile' },
-    { id: 'notifications', label: 'Notifications' },
     { id: 'appearance', label: 'Appearance' },
-    { id: 'integrations', label: 'Integrations' },
     { id: 'security', label: 'Security' },
 ];
 
@@ -24,6 +22,11 @@ const SettingsPage: React.FC = () => {
     const [theme, setTheme] = useState<string>(() => {
         try { return localStorage.getItem('app_theme') || 'dark'; } catch (err) { return 'dark'; }
     });
+
+    // security state: email and password (local-only persistence)
+    const [securityEmail, setSecurityEmail] = useState<string>('');
+    const [securityPassword, setSecurityPassword] = useState<string>('');
+    const [securityPasswordConfirm, setSecurityPasswordConfirm] = useState<string>('');
 
     const applyTheme = (v: string) => {
         try { localStorage.setItem('app_theme', v); } catch (err) {}
@@ -78,10 +81,69 @@ const SettingsPage: React.FC = () => {
             const result = reader.result as string | null;
             if (result) setTempAvatarUrl(result);
         };
+
+    // load security info (if previously saved locally)
+    useEffect(() => {
+        try {
+            const raw = localStorage.getItem('app_security');
+            if (raw) {
+                const obj = JSON.parse(raw);
+                if (obj?.email) setSecurityEmail(obj.email);
+                // we don't auto-fill password for security reasons
+            }
+        } catch (err) {
+            // ignore
+        }
+    }, []);
         reader.onerror = () => {
             alert('Erro ao processar a imagem.');
         };
         reader.readAsDataURL(file);
+    };
+
+    const saveSecurity = () => {
+        // basic validation
+        const email = securityEmail?.trim();
+        if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
+            alert('Digite um email válido.');
+            return;
+        }
+        if (securityPassword) {
+            if (securityPassword.length < 6) {
+                alert('Senha muito curta (mínimo 6 caracteres).');
+                return;
+            }
+            if (securityPassword !== securityPasswordConfirm) {
+                alert('As senhas não coincidem.');
+                return;
+            }
+        }
+
+        try {
+            const payload: any = { email };
+            if (securityPassword) payload.password = securityPassword; // local demo only
+            localStorage.setItem('app_security', JSON.stringify(payload));
+            setSecurityPassword('');
+            setSecurityPasswordConfirm('');
+            alert('Configurações de segurança salvas localmente.');
+        } catch (err) {
+            console.warn('Erro ao salvar segurança', err);
+            alert('Falha ao salvar.');
+        }
+    };
+
+    const cancelSecurity = () => {
+        // reload stored email
+        try {
+            const raw = localStorage.getItem('app_security');
+            const obj = raw ? JSON.parse(raw) : null;
+            setSecurityEmail(obj?.email ?? '');
+            setSecurityPassword('');
+            setSecurityPasswordConfirm('');
+        } catch (err) {
+            setSecurityPassword('');
+            setSecurityPasswordConfirm('');
+        }
     };
 
     const onFileChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
