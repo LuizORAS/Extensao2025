@@ -236,9 +236,55 @@ const SettingsPage: React.FC = () => {
                 );
             case 'security':
                 return (
-                    <div>
+                    <div className="settings-content security-settings">
                         <h2>Security</h2>
-                        <p>Placeholder for password and access control.</p>
+
+                        <div className="security-grid">
+                            <div className="security-block security-email">
+                                <label className="settings-label">
+                                    Email
+                                    <input
+                                        className="settings-input"
+                                        type="email"
+                                        value={securityEmail}
+                                        onChange={e => setSecurityEmail(e.target.value)}
+                                        placeholder="seu@exemplo.com"
+                                    />
+                                </label>
+                                <p className="muted">O email é usado para recuperação e notificações (persistido localmente neste demo).</p>
+                            </div>
+
+                            <div className="security-block security-password">
+                                <label className="settings-label">
+                                    Nova senha
+                                    <input
+                                        className="settings-input"
+                                        type="password"
+                                        value={securityPassword}
+                                        onChange={e => setSecurityPassword(e.target.value)}
+                                        placeholder="Deixe em branco para manter a atual"
+                                    />
+                                </label>
+
+                                <label className="settings-label">
+                                    Confirme a senha
+                                    <input
+                                        className="settings-input"
+                                        type="password"
+                                        value={securityPasswordConfirm}
+                                        onChange={e => setSecurityPasswordConfirm(e.target.value)}
+                                        placeholder="Repita a nova senha"
+                                    />
+                                </label>
+
+                                <p className="muted">Para alterar a senha, digite duas vezes. Caso contrário, deixe em branco.</p>
+                            </div>
+                        </div>
+
+                        <div className="profile-actions-row" style={{ marginTop: 12 }}>
+                            <button className="btn primary" onClick={saveSecurity}>Salvar</button>
+                            <button className="btn ghost" onClick={cancelSecurity}>Cancelar</button>
+                        </div>
                     </div>
                 );
             default:
