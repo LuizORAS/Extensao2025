@@ -31,6 +31,20 @@ db.prepare(`
   )
 `).run();
 
+// Ensure new columns for payment state exist (paid, finalized)
+try {
+  const cols = db.prepare("PRAGMA table_info('appointments')").all().map(r => r.name);
+  if (!cols.includes('paid')) {
+    db.prepare("ALTER TABLE appointments ADD COLUMN paid INTEGER DEFAULT 0").run();
+  }
+  if (!cols.includes('finalized')) {
+    db.prepare("ALTER TABLE appointments ADD COLUMN finalized INTEGER DEFAULT 0").run();
+  }
+} catch (err) {
+  // If alter fails, log but don't crash initialization
+  console.warn('Could not ensure payment columns on appointments table', err);
+}
+
 // Tabela de orçamento
 db.prepare(`
   CREATE TABLE IF NOT EXISTS budget (

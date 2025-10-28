@@ -110,6 +110,49 @@ app.put('/api/appointments/:id', (req, res) => {
   res.json(updated);
 });
 
+// Confirm payment for an appointment: create budget entry and mark appointment as paid+finalized
+app.post('/api/appointments/:id/confirm-payment', (req, res) => {
+  const id = Number(req.params.id);
+  try {
+  const ap = db.prepare('SELECT * FROM appointments WHERE id = ?').get(id);
+  if (!ap) return res.status(404).json({ message: 'Agendamento não encontrado' });
+  if (ap.paid && ap.finalized) return res.status(400).json({ message: 'Agendamento já marcado como pago' });
+
+    // get client name if available
+    let cliente_nome = null;
+    if (ap.cliente) {
+      const c = db.prepare('SELECT nome FROM clients WHERE id = ?').get(ap.cliente);
+      if (c) cliente_nome = c.nome;
+    }
+
+    // create budget entry
+    const info = db.prepare(
+      'INSERT INTO budget (cliente, cliente_nome, valor, status_pagamento, data, notas) VALUES (?, ?, ?, ?, ?, ?)'
+    ).run(
+      ap.cliente || null,
+      cliente_nome,
+      ap.valor_corte || 0,
+      'paid',
+      ap.data || null,
+      `Pagamento do agendamento ${id}`
+    );
+
+    // update appointment flags
+    db.prepare('UPDATE appointments SET paid = 1, finalized = 1 WHERE id = ?').run(id);
+
+    const created = db.prepare('SELECT * FROM budget WHERE id = ?').get(info.lastInsertRowid);
+    const updatedAp = db.prepare('SELECT * FROM appointments WHERE id = ?').get(id);
+
+    // notify listeners (front-end) if needed
+    try { /* no-op here on server */ } catch (e) {}
+
+    res.json({ appointment: updatedAp, budget: created });
+  } catch (err) {
+    console.error('Erro ao confirmar pagamento do agendamento', err);
+    res.status(500).json({ message: 'Falha ao confirmar pagamento' });
+  }
+});
+
 app.delete('/api/appointments/:id', (req, res) => {
   const id = Number(req.params.id);
   db.prepare('DELETE FROM appointments WHERE id = ?').run(id);

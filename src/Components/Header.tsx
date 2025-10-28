@@ -8,6 +8,7 @@ import { FaUserShield, FaChevronUp, FaChevronDown } from "react-icons/fa";
 const Header: React.FC = () => {
     const [countWeek, setCountWeek] = useState<number>(0);
     const [expectedWeekRevenue, setExpectedWeekRevenue] = useState<number>(0);
+    const [monthRevenue, setMonthRevenue] = useState<number>(0);
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const API_BASE = (import.meta as any).env?.VITE_API_URL || 'http://localhost:4000';
 
@@ -21,22 +22,33 @@ const Header: React.FC = () => {
             const startOfWeek = new Date(startOfToday);
             startOfWeek.setDate(startOfWeek.getDate() - startOfWeek.getDay());
             const endOfWeek = new Date(startOfWeek);
-            endOfWeek.setDate(endOfWeek.getDate() + 7);
+            endOfWeek.setDate(startOfWeek.getDate() + 7);
 
             let count = 0;
             let revenue = 0;
+            let monthRev = 0;
             for (const r of rows) {
                 const dStr = r.data || r.date || null;
                 if (!dStr) continue;
                 const d = new Date(dStr);
                 if (d >= startOfWeek && d < endOfWeek) {
                     count += 1;
-                    const v = Number(r.valor_corte ?? r.valor ?? 0) || 0;
+                    const v = Number(r.valor_corte ?? 0) || 0;
                     revenue += v;
                 }
+                // compute month revenue only for appointments that are marked paid+finalized
+                try {
+                    if (r.paid && r.finalized) {
+                        const now2 = new Date();
+                        if (d.getFullYear() === now2.getFullYear() && d.getMonth() === now2.getMonth()) {
+                            monthRev += Number(r.valor_corte ?? 0) || 0;
+                        }
+                    }
+                } catch (err) { /* ignore */ }
             }
             setCountWeek(count);
             setExpectedWeekRevenue(revenue);
+            setMonthRevenue(monthRev);
         } catch (err) {
             console.error('Erro ao buscar agendamentos para contador', err);
         }
@@ -152,7 +164,7 @@ const Header: React.FC = () => {
                         </div>
                         <div className="navbar-box">
                             <span>Faturamento total esse mês</span>
-                            <span className="navbar-counter">R$ 0,00</span>
+                            <span className="navbar-counter">{new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(monthRevenue)}</span>
                         </div>
                     </div>
             </nav>
