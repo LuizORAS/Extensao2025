@@ -199,6 +199,28 @@ app.post('/api/login', (req, res) => {
   res.status(201).json(created);
 });
 
+// Authentication endpoint (verify credentials)
+app.post('/api/login/auth', (req, res) => {
+  const { user, email, senha } = req.body;
+  if ((!user && !email) || !senha) return res.status(400).json({ message: 'Informe usuário/email e senha' });
+  try {
+    let row;
+    if (email) {
+      row = db.prepare('SELECT id, user, email, telefone, nome, sobrenome, senha FROM login WHERE email = ?').get(email);
+    } else {
+      row = db.prepare('SELECT id, user, email, telefone, nome, sobrenome, senha FROM login WHERE user = ?').get(user);
+    }
+    if (!row) return res.status(401).json({ message: 'Credenciais inválidas' });
+    if (row.senha !== senha) return res.status(401).json({ message: 'Credenciais inválidas' });
+    // remove senha before returning
+    const { senha: _s, ...safe } = row;
+    res.json(safe);
+  } catch (err) {
+    console.error('Erro na autenticação', err);
+    res.status(500).json({ message: 'Erro interno' });
+  }
+});
+
 // --- Rota de teste (healthcheck) ---
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok' });
@@ -206,4 +228,29 @@ app.get('/api/health', (req, res) => {
 
 app.listen(port, () => {
   console.log(`Server listening on http://localhost:${port}`);
+});
+
+// Update login record (partial update)
+app.put('/api/login/:id', (req, res) => {
+  const id = Number(req.params.id);
+  const { user, email, senha, telefone, nome, sobrenome } = req.body;
+  try {
+    db.prepare(`
+      UPDATE login
+      SET user = COALESCE(?, user),
+          email = COALESCE(?, email),
+          senha = COALESCE(?, senha),
+          telefone = COALESCE(?, telefone),
+          nome = COALESCE(?, nome),
+          sobrenome = COALESCE(?, sobrenome)
+      WHERE id = ?
+    `).run(user || null, email || null, senha || null, telefone || null, nome || null, sobrenome || null, id);
+
+    const updated = db.prepare('SELECT id, user, email, telefone, nome, sobrenome, criado_em FROM login WHERE id = ?').get(id);
+    if (!updated) return res.status(404).json({ message: 'Usuário não encontrado' });
+    res.json(updated);
+  } catch (err) {
+    console.error('Erro ao atualizar login', err);
+    res.status(500).json({ message: 'Erro interno' });
+  }
 });

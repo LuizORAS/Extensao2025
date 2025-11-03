@@ -22,9 +22,9 @@ const CreateUser: React.FC = () => {
     if (password !== confirm) return setMsg('Senhas não batem.');
     try {
       setLoading(true);
-      const res = await fetch(`${API_BASE}/api/users`, {
+      const res = await fetch(`${API_BASE}/api/login`, {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, username, password }),
+        body: JSON.stringify({ user: username, email, senha: password }),
       });
       if (!res.ok) {
         const body = await res.json().catch(() => ({}));

@@ -1,11 +1,13 @@
 
 
 import React, { useState, useEffect, useRef } from "react";
+import { FaUser } from 'react-icons/fa';
 import "./SettingsPage.css";
 
 const OPTIONS = [
     { id: 'profile', label: 'Profile' },
     { id: 'appearance', label: 'Appearance' },
+    { id: 'language', label: 'Language' },
     { id: 'security', label: 'Security' },
 ];
 
@@ -17,6 +19,7 @@ const SettingsPage: React.FC = () => {
     const [tempName, setTempName] = useState<string>('');
     const [tempAvatarUrl, setTempAvatarUrl] = useState<string | null>(null);
     const fileRef = useRef<HTMLInputElement | null>(null);
+    const API_BASE = (import.meta as any).env?.VITE_API_URL || 'http://localhost:4000';
 
     // theme state (moved to top-level to follow Hooks rules)
     const [theme, setTheme] = useState<string>(() => {
@@ -27,6 +30,10 @@ const SettingsPage: React.FC = () => {
     const [securityEmail, setSecurityEmail] = useState<string>('');
     const [securityPassword, setSecurityPassword] = useState<string>('');
     const [securityPasswordConfirm, setSecurityPasswordConfirm] = useState<string>('');
+    // language selection (UI only for now)
+    const [language, setLanguage] = useState<string>(() => {
+        try { return localStorage.getItem('app_language') || 'pt-BR'; } catch (err) { return 'pt-BR'; }
+    });
 
     const applyTheme = (v: string) => {
         try { localStorage.setItem('app_theme', v); } catch (err) {}
@@ -35,6 +42,11 @@ const SettingsPage: React.FC = () => {
         } else {
             document.documentElement.setAttribute('data-theme', v);
         }
+    };
+
+    const applyLanguage = (v: string) => {
+        // UI-only: persist selection so it can be used later when translation is implemented
+        try { localStorage.setItem('app_language', v); } catch (err) {}
     };
 
     useEffect(() => {
@@ -51,6 +63,20 @@ const SettingsPage: React.FC = () => {
             }
         } catch (err) {
             console.warn('Falha ao carregar perfil local', err);
+        }
+    }, []);
+
+    // load security info (if previously saved locally)
+    useEffect(() => {
+        try {
+            const raw = localStorage.getItem('app_security');
+            if (raw) {
+                const obj = JSON.parse(raw);
+                if (obj?.email) setSecurityEmail(obj.email);
+                // we don't auto-fill password for security reasons
+            }
+        } catch (err) {
+            // ignore
         }
     }, []);
 
@@ -81,24 +107,20 @@ const SettingsPage: React.FC = () => {
             const result = reader.result as string | null;
             if (result) setTempAvatarUrl(result);
         };
-
-    // load security info (if previously saved locally)
-    useEffect(() => {
-        try {
-            const raw = localStorage.getItem('app_security');
-            if (raw) {
-                const obj = JSON.parse(raw);
-                if (obj?.email) setSecurityEmail(obj.email);
-                // we don't auto-fill password for security reasons
-            }
-        } catch (err) {
-            // ignore
-        }
-    }, []);
         reader.onerror = () => {
             alert('Erro ao processar a imagem.');
         };
         reader.readAsDataURL(file);
+    };
+
+    // remove photo immediately and persist change
+    const removePhoto = () => {
+        setTempAvatarUrl(null);
+        setAvatarUrl(null);
+        try {
+            persistProfile(profileName, null);
+            try { window.dispatchEvent(new CustomEvent('profile:changed', { detail: { name: profileName, avatarUrl: null } })); } catch (e) {}
+        } catch (err) { /* ignore */ }
     };
 
     const saveSecurity = () => {
@@ -153,19 +175,43 @@ const SettingsPage: React.FC = () => {
 
     const openFilePicker = () => fileRef.current?.click();
 
-    const saveProfile = () => {
+    const saveProfile = async () => {
         const nameToSave = tempName?.trim() || profileName;
         const avatarToSave = tempAvatarUrl ?? avatarUrl;
         persistProfile(nameToSave, avatarToSave ?? null);
         setTempAvatarUrl(null);
         setTempName('');
-        // when backend available, send here
-        // notify other parts of the app that profile changed (header should update)
+
+        // if user is authenticated, update login table (user/nome)
         try {
-            window.dispatchEvent(new CustomEvent('profile:changed', { detail: { name: nameToSave, avatarUrl: avatarToSave ?? null } }));
+            const rawAuth = localStorage.getItem('app_auth');
+            if (rawAuth) {
+                const auth = JSON.parse(rawAuth);
+                if (auth?.id) {
+                    const res = await fetch(`${API_BASE}/api/login/${auth.id}`, {
+                        method: 'PUT',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ user: nameToSave, nome: nameToSave }),
+                    });
+                    if (res.ok) {
+                        const updated = await res.json();
+                        try { localStorage.setItem('app_auth', JSON.stringify(updated)); } catch (e) {}
+                        // notify header and others
+                        try { window.dispatchEvent(new CustomEvent('profile:changed', { detail: { name: updated.nome || updated.user || nameToSave, avatarUrl: avatarToSave ?? null } })); } catch (e) {}
+                    } else {
+                        // non-fatal: alert user
+                        const body = await res.json().catch(() => ({}));
+                        alert('Perfil salvo localmente, mas não foi possível atualizar o servidor: ' + (body.message || 'erro'));
+                    }
+                }
+            } else {
+                // not authenticated: just dispatch local change
+                try { window.dispatchEvent(new CustomEvent('profile:changed', { detail: { name: nameToSave, avatarUrl: avatarToSave ?? null } })); } catch (e) {}
+            }
         } catch (err) {
-            // ignore
+            console.warn('Erro ao sincronizar profile com servidor', err);
         }
+
         alert('Perfil salvo localmente (localStorage).');
     };
 
@@ -186,12 +232,15 @@ const SettingsPage: React.FC = () => {
                                     { (tempAvatarUrl ?? avatarUrl) ? (
                                         <img src={tempAvatarUrl ?? avatarUrl ?? undefined} alt="Avatar" className="avatar-large" />
                                     ) : (
-                                        <div className="avatar-large placeholder">U</div>
+                                        <div className="avatar-large placeholder"><FaUser size={44} /></div>
                                     ) }
                                 </div>
-                                <div style={{ marginTop: 12 }}>
-                                    <button className="btn" onClick={openFilePicker}>Escolher foto</button>
+                                <div className="avatar-actions">
+                                    <button className="btn small" onClick={openFilePicker}>Escolher foto</button>
                                     <input ref={fileRef} type="file" accept="image/*" style={{ display: 'none' }} onChange={onFileChange} />
+                                    {(tempAvatarUrl ?? avatarUrl) ? (
+                                        <button className="btn danger small" onClick={removePhoto}>Remover</button>
+                                    ) : null}
                                 </div>
                             </div>
 
@@ -232,6 +281,31 @@ const SettingsPage: React.FC = () => {
                             </select>
                         </label>
                         <p className="muted">Escolha entre tema claro, levemente escuro (tons azulados) e escuro.</p>
+                    </div>
+                );
+            case 'language':
+                return (
+                    <div className="settings-content">
+                        <h2>Language</h2>
+                        <label className="settings-label">
+                            Idioma
+                            <select
+                                className="settings-select"
+                                value={language}
+                                onChange={(e) => {
+                                    const v = e.target.value;
+                                    setLanguage(v);
+                                    applyLanguage(v);
+                                }}
+                            >
+                                <option value="pt-BR">Português (Brasil)</option>
+                                <option value="en-US">English (US)</option>
+                                <option value="es-ES">Español (ES)</option>
+                                <option value="fr-FR">Français (FR)</option>
+                                <option value="de-DE">Deutsch (DE)</option>
+                            </select>
+                        </label>
+                        <p className="muted">Selecione o idioma do aplicativo. Esta opção apenas salva a preferência — a tradução será implementada posteriormente.</p>
                     </div>
                 );
             case 'security':

@@ -18,7 +18,7 @@ const Login: React.FC = () => {
     if (!username || !password) return setMessage('Preencha usuário e senha.');
     try {
       setLoading(true);
-      const res = await fetch(`${API_BASE}/api/login`, {
+      const res = await fetch(`${API_BASE}/api/login/auth`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ user: username, senha: password }),
@@ -27,8 +27,18 @@ const Login: React.FC = () => {
         const body = await res.json().catch(() => ({}));
         setMessage(body.message || 'Falha no login');
       } else {
+        const user = await res.json();
+        // persist auth in localStorage
+        try { localStorage.setItem('app_auth', JSON.stringify(user)); } catch (err) {}
+        // persist a simple profile so header can show a name/avatar if desired
+        try {
+          const profile = { name: user.nome || user.user || 'Usuário', avatarUrl: null };
+          localStorage.setItem('app_user_profile', JSON.stringify(profile));
+          // notify other tabs/components
+          try { window.dispatchEvent(new CustomEvent('profile:changed', { detail: profile })); } catch (e) {}
+        } catch (err) {}
         setMessage('Login realizado');
-        setTimeout(() => navigate('/welcome'), 600);
+        setTimeout(() => navigate('/welcome'), 300);
       }
     } catch (err) {
       setMessage('Erro de conexão');

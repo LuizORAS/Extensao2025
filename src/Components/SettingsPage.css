@@ -96,6 +96,12 @@
 .btn { padding: 8px 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); background: transparent; color: var(--text); cursor: pointer }
 .btn.primary { background: var(--accent); color: var(--card-contrast, #000); border-color: rgba(0,0,0,0.12) }
 .btn.ghost { opacity: 0.8 }
+.btn.danger { background: linear-gradient(180deg, #ff6b6b, #e03434); color: #fff; border-color: rgba(0,0,0,0.12) }
+
+/* avatar actions: smaller buttons side-by-side */
+.avatar-actions { display:flex; gap:8px; margin-top:12px; align-items:center }
+.avatar-actions .btn { padding: 6px 10px; font-size: 0.95rem }
+.btn.small { padding: 6px 10px; font-size: 0.95rem }
 
 .settings-input { padding: 8px 10px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.06); background: var(--bg); color: var(--text); width: 75%; margin-top: 8px }
 
