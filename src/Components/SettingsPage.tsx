@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { FaUser } from 'react-icons/fa';
 import "./SettingsPage.css";
+import { useLanguage } from '../LanguageContext';
 
 const OPTIONS = [
     { id: 'profile', label: 'Profile' },
@@ -30,10 +31,8 @@ const SettingsPage: React.FC = () => {
     const [securityEmail, setSecurityEmail] = useState<string>('');
     const [securityPassword, setSecurityPassword] = useState<string>('');
     const [securityPasswordConfirm, setSecurityPasswordConfirm] = useState<string>('');
-    // language selection (UI only for now)
-    const [language, setLanguage] = useState<string>(() => {
-        try { return localStorage.getItem('app_language') || 'pt-BR'; } catch (err) { return 'pt-BR'; }
-    });
+    // language selection (UI only for now) — driven by LanguageContext (first incremental step)
+    const { language, setLanguage: setAppLanguage } = useLanguage();
 
     const applyTheme = (v: string) => {
         try { localStorage.setItem('app_theme', v); } catch (err) {}
@@ -42,11 +41,6 @@ const SettingsPage: React.FC = () => {
         } else {
             document.documentElement.setAttribute('data-theme', v);
         }
-    };
-
-    const applyLanguage = (v: string) => {
-        // UI-only: persist selection so it can be used later when translation is implemented
-        try { localStorage.setItem('app_language', v); } catch (err) {}
     };
 
     useEffect(() => {
@@ -294,8 +288,8 @@ const SettingsPage: React.FC = () => {
                                 value={language}
                                 onChange={(e) => {
                                     const v = e.target.value;
-                                    setLanguage(v);
-                                    applyLanguage(v);
+                                    // update global language state — persistence/notifications handled by provider
+                                    setAppLanguage(v);
                                 }}
                             >
                                 <option value="pt-BR">Português (Brasil)</option>
