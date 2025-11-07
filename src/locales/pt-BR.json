@@ -1,0 +1,37 @@
+{
+  "settings": {
+    "profile": {
+      "title": "Profile",
+      "nameLabel": "Nome",
+      "choosePhoto": "Escolher foto",
+      "removePhoto": "Remover",
+      "save": "Salvar",
+      "cancel": "Cancelar",
+      "noteLocalSave": "Ao salvar, a alteração ficará disponível localmente. Integrar backend posteriormente."
+    },
+    "appearance": {
+      "title": "Appearance",
+      "themeLabel": "Tema",
+      "themeLight": "Claro",
+      "themeSlightDark": "Levemente escuro",
+      "themeDark": "Escuro",
+      "muted": "Escolha entre tema claro, levemente escuro (tons azulados) e escuro."
+    },
+    "language": {
+      "title": "Language",
+      "label": "Idioma",
+      "note": "Selecione o idioma do aplicativo. Esta opção apenas salva a preferência — a tradução será implementada posteriormente."
+    },
+    "security": {
+      "title": "Security",
+      "emailLabel": "Email",
+      "newPassword": "Nova senha",
+      "confirmPassword": "Confirme a senha",
+      "muted": "Para alterar a senha, digite duas vezes. Caso contrário, deixe em branco."
+    }
+  },
+  "buttons": {
+    "primary": "Salvar",
+    "ghost": "Cancelar"
+  }
+}

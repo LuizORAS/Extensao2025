@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { FaUser } from 'react-icons/fa';
 import "./SettingsPage.css";
 import { useLanguage } from '../LanguageContext';
+import { useTranslation } from '../i18n';
 
 const OPTIONS = [
     { id: 'profile', label: 'Profile' },
@@ -33,6 +34,7 @@ const SettingsPage: React.FC = () => {
     const [securityPasswordConfirm, setSecurityPasswordConfirm] = useState<string>('');
     // language selection (UI only for now) — driven by LanguageContext (first incremental step)
     const { language, setLanguage: setAppLanguage } = useLanguage();
+    const { t } = useTranslation();
 
     const applyTheme = (v: string) => {
         try { localStorage.setItem('app_theme', v); } catch (err) {}
@@ -219,7 +221,7 @@ const SettingsPage: React.FC = () => {
             case 'profile':
                 return (
                     <div className="settings-content profile-settings">
-                        <h2>Profile</h2>
+                        <h2>{t('settings.profile.title')}</h2>
                         <div className="profile-grid">
                             <div className="profile-left">
                                 <div className="avatar-large-wrap">
@@ -230,26 +232,26 @@ const SettingsPage: React.FC = () => {
                                     ) }
                                 </div>
                                 <div className="avatar-actions">
-                                    <button className="btn small" onClick={openFilePicker}>Escolher foto</button>
+                                    <button className="btn small" onClick={openFilePicker}>{t('settings.profile.choosePhoto')}</button>
                                     <input ref={fileRef} type="file" accept="image/*" style={{ display: 'none' }} onChange={onFileChange} />
                                     {(tempAvatarUrl ?? avatarUrl) ? (
-                                        <button className="btn danger small" onClick={removePhoto}>Remover</button>
+                                        <button className="btn danger small" onClick={removePhoto}>{t('settings.profile.removePhoto')}</button>
                                     ) : null}
                                 </div>
                             </div>
 
                             <div className="profile-right">
                                 <label className="settings-label">
-                                    Nome
+                                    {t('settings.profile.nameLabel')}
                                     <input className="settings-input" value={tempName !== '' ? tempName : profileName} onChange={e => setTempName(e.target.value)} />
                                 </label>
 
                                 <div className="profile-actions-row">
-                                    <button className="btn primary" onClick={saveProfile}>Salvar</button>
-                                    <button className="btn ghost" onClick={cancelChanges}>Cancelar</button>
+                                    <button className="btn primary" onClick={saveProfile}>{t('settings.profile.save')}</button>
+                                    <button className="btn ghost" onClick={cancelChanges}>{t('buttons.ghost')}</button>
                                 </div>
 
-                                <p className="muted">Ao salvar, a alteração ficará disponível localmente. Integrar backend posteriormente.</p>
+                                <p className="muted">{t('settings.profile.noteLocalSave')}</p>
                             </div>
                         </div>
                     </div>
