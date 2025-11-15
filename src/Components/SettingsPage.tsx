@@ -289,10 +289,10 @@ const SettingsPage: React.FC = () => {
                                 className="settings-select"
                                 value={language}
                                 onChange={(e) => {
-                                    const v = e.target.value;
-                                    // update global language state — persistence/notifications handled by provider
-                                    setAppLanguage(v);
-                                }}
+                                        const v = e.target.value as any;
+                                        // update global language state — persistence/notifications handled by provider
+                                        setAppLanguage(v);
+                                    }}
                             >
                                 <option value="pt-BR">Português (Brasil)</option>
                                 <option value="en-US">English (US)</option>
