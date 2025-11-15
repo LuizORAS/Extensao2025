@@ -1,10 +1,11 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useLanguage } from './LanguageContext';
+import type { Locale } from './types/languages';
 
 type Bundle = Record<string, any>;
 
 const CACHE: Record<string, Bundle> = {};
-const DEFAULT_FALLBACKS = ['pt-BR', 'en-US'];
+const DEFAULT_FALLBACKS: Locale[] = ['pt-BR', 'en-US'];
 
 async function loadBundle(lang: string): Promise<Bundle | null> {
   if (!lang) return null;
@@ -63,7 +64,7 @@ export function useTranslation() {
 
     (async () => {
       // try requested language then fallbacks
-      const tries = [language, ...DEFAULT_FALLBACKS];
+      const tries: string[] = [language as string, ...DEFAULT_FALLBACKS];
       for (const l of tries) {
         if (!l) continue;
         const b = await loadBundle(l);
@@ -93,7 +94,7 @@ export function useTranslation() {
     };
   }, [bundle]);
 
-  return { t, language, ready } as const;
+  return { t, language: language as Locale, ready } as const;
 }
 
 export default useTranslation;

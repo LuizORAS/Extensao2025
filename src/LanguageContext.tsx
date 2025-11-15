@@ -1,37 +1,62 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect, useMemo, useState, useCallback } from 'react';
+import type { Locale } from './types/languages';
 
 type LanguageContextType = {
-  language: string;
-  setLanguage: (l: string) => void;
+  language: Locale;
+  setLanguage: (l: Locale) => void;
 };
 
 const LanguageContext = createContext<LanguageContextType>({
   language: 'pt-BR',
-  setLanguage: () => {},
+  setLanguage: (() => {}) as (l: Locale) => void,
 });
 
 export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [language, setLanguageState] = useState<string>(() => {
-    try { return localStorage.getItem('app_language') || 'pt-BR'; } catch (e) { return 'pt-BR'; }
+  const [language, setLanguageState] = useState<Locale>(() => {
+    try { const v = localStorage.getItem('app_language'); return (v as Locale) || 'pt-BR'; } catch (e) { return 'pt-BR'; }
   });
 
   // persist and notify on language changes
   useEffect(() => {
-    try { localStorage.setItem('app_language', language); } catch (e) { /* ignore */ }
+    // Avoid unnecessary writes/updates when value is unchanged
     try {
-      // set document lang attributes so screen readers and other consumers can pick it up
+      const current = localStorage.getItem('app_language');
+      if (current !== language) {
+        localStorage.setItem('app_language', language);
+      }
+    } catch (e) { /* ignore */ }
+
+    // update document attributes and notify listeners
+    try {
       document.documentElement.lang = language;
       document.documentElement.setAttribute('data-lang', language);
-    } catch (e) {}
+    } catch (e) { /* ignore */ }
+
     try {
       window.dispatchEvent(new CustomEvent('language:changed', { detail: { language } }));
     } catch (e) { /* ignore */ }
   }, [language]);
 
-  const setLanguage = (l: string) => setLanguageState(l);
+  // Sync language across tabs/windows
+  useEffect(() => {
+    const onStorage = (ev: StorageEvent) => {
+      if (ev.key === 'app_language' && ev.newValue && ev.newValue !== language) {
+        setLanguageState(ev.newValue as Locale);
+      }
+    };
+    window.addEventListener('storage', onStorage);
+    return () => window.removeEventListener('storage', onStorage);
+  }, [language]);
+
+  const setLanguage = useCallback((l: Locale) => {
+    if (!l) return;
+    setLanguageState(prev => (prev === l ? prev : l));
+  }, []);
+
+  const value = useMemo(() => ({ language, setLanguage }), [language, setLanguage]);
 
   return (
-    <LanguageContext.Provider value={{ language, setLanguage }}>
+    <LanguageContext.Provider value={value}>
       {children}
     </LanguageContext.Provider>
   );
