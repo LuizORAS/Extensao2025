@@ -3,8 +3,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { FaUser } from 'react-icons/fa';
 import "./SettingsPage.css";
-import { useLanguage } from '../LanguageContext';
-import { useTranslation } from '../i18n';
 
 const OPTIONS = [
     { id: 'profile', label: 'Profile' },
@@ -32,9 +30,14 @@ const SettingsPage: React.FC = () => {
     const [securityEmail, setSecurityEmail] = useState<string>('');
     const [securityPassword, setSecurityPassword] = useState<string>('');
     const [securityPasswordConfirm, setSecurityPasswordConfirm] = useState<string>('');
-    // language selection (UI only for now) — driven by LanguageContext (first incremental step)
-    const { language, setLanguage: setAppLanguage } = useLanguage();
-    const { t } = useTranslation();
+    // language selection (UI only for now)
+    const [language, setLanguage] = useState<string>(() => {
+        try { return localStorage.getItem('app_language') || 'pt-BR'; } catch (err) { return 'pt-BR'; }
+    });
+
+    const applyLanguage = (v: string) => {
+        try { localStorage.setItem('app_language', v); } catch (err) {}
+    };
 
     const applyTheme = (v: string) => {
         try { localStorage.setItem('app_theme', v); } catch (err) {}
@@ -221,7 +224,7 @@ const SettingsPage: React.FC = () => {
             case 'profile':
                 return (
                     <div className="settings-content profile-settings">
-                        <h2>{t('settings.profile.title')}</h2>
+                        <h2>Profile</h2>
                         <div className="profile-grid">
                             <div className="profile-left">
                                 <div className="avatar-large-wrap">
@@ -232,26 +235,26 @@ const SettingsPage: React.FC = () => {
                                     ) }
                                 </div>
                                 <div className="avatar-actions">
-                                    <button className="btn small" onClick={openFilePicker}>{t('settings.profile.choosePhoto')}</button>
+                                    <button className="btn small" onClick={openFilePicker}>Escolher foto</button>
                                     <input ref={fileRef} type="file" accept="image/*" style={{ display: 'none' }} onChange={onFileChange} />
                                     {(tempAvatarUrl ?? avatarUrl) ? (
-                                        <button className="btn danger small" onClick={removePhoto}>{t('settings.profile.removePhoto')}</button>
+                                        <button className="btn danger small" onClick={removePhoto}>Remover</button>
                                     ) : null}
                                 </div>
                             </div>
 
                             <div className="profile-right">
                                 <label className="settings-label">
-                                    {t('settings.profile.nameLabel')}
+                                    Nome
                                     <input className="settings-input" value={tempName !== '' ? tempName : profileName} onChange={e => setTempName(e.target.value)} />
                                 </label>
 
                                 <div className="profile-actions-row">
-                                    <button className="btn primary" onClick={saveProfile}>{t('settings.profile.save')}</button>
-                                    <button className="btn ghost" onClick={cancelChanges}>{t('buttons.ghost')}</button>
+                                    <button className="btn primary" onClick={saveProfile}>Salvar</button>
+                                    <button className="btn ghost" onClick={cancelChanges}>Cancelar</button>
                                 </div>
 
-                                <p className="muted">{t('settings.profile.noteLocalSave')}</p>
+                                <p className="muted">Ao salvar, a alteração ficará disponível localmente. Integrar backend posteriormente.</p>
                             </div>
                         </div>
                     </div>
@@ -289,9 +292,9 @@ const SettingsPage: React.FC = () => {
                                 className="settings-select"
                                 value={language}
                                 onChange={(e) => {
-                                        const v = e.target.value as any;
-                                        // update global language state — persistence/notifications handled by provider
-                                        setAppLanguage(v);
+                                        const v = e.target.value;
+                                        setLanguage(v);
+                                        applyLanguage(v);
                                     }}
                             >
                                 <option value="pt-BR">Português (Brasil)</option>

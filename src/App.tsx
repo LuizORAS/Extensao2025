@@ -1,5 +1,4 @@
 import React from 'react';
-import { LanguageProvider } from './LanguageContext';
 import PageShell from './Components/PageShell';
 import './App.css';
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
@@ -41,8 +40,7 @@ function App() {
   };
 
   return (
-    <LanguageProvider>
-      <Routes>
+    <Routes>
       {/* Auth routes: no header/footer */}
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<CreateUser />} />
@@ -69,7 +67,6 @@ function App() {
         </RequireAuth>
       } />
       </Routes>
-    </LanguageProvider>
   );
 }
 
