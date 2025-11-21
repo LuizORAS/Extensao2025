@@ -7,7 +7,6 @@ import "./SettingsPage.css";
 const OPTIONS = [
     { id: 'profile', label: 'Profile' },
     { id: 'appearance', label: 'Appearance' },
-    { id: 'language', label: 'Language' },
     { id: 'security', label: 'Security' },
 ];
 
@@ -30,14 +29,7 @@ const SettingsPage: React.FC = () => {
     const [securityEmail, setSecurityEmail] = useState<string>('');
     const [securityPassword, setSecurityPassword] = useState<string>('');
     const [securityPasswordConfirm, setSecurityPasswordConfirm] = useState<string>('');
-    // language selection (UI only for now)
-    const [language, setLanguage] = useState<string>(() => {
-        try { return localStorage.getItem('app_language') || 'pt-BR'; } catch (err) { return 'pt-BR'; }
-    });
-
-    const applyLanguage = (v: string) => {
-        try { localStorage.setItem('app_language', v); } catch (err) {}
-    };
+    // (language support removed) — no-op: application will not implement translations now
 
     const applyTheme = (v: string) => {
         try { localStorage.setItem('app_theme', v); } catch (err) {}
@@ -282,31 +274,7 @@ const SettingsPage: React.FC = () => {
                         <p className="muted">Escolha entre tema claro, levemente escuro (tons azulados) e escuro.</p>
                     </div>
                 );
-            case 'language':
-                return (
-                    <div className="settings-content">
-                        <h2>Language</h2>
-                        <label className="settings-label">
-                            Idioma
-                            <select
-                                className="settings-select"
-                                value={language}
-                                onChange={(e) => {
-                                        const v = e.target.value;
-                                        setLanguage(v);
-                                        applyLanguage(v);
-                                    }}
-                            >
-                                <option value="pt-BR">Português (Brasil)</option>
-                                <option value="en-US">English (US)</option>
-                                <option value="es-ES">Español (ES)</option>
-                                <option value="fr-FR">Français (FR)</option>
-                                <option value="de-DE">Deutsch (DE)</option>
-                            </select>
-                        </label>
-                        <p className="muted">Selecione o idioma do aplicativo. Esta opção apenas salva a preferência — a tradução será implementada posteriormente.</p>
-                    </div>
-                );
+            /* language support intentionally removed */
             case 'security':
                 return (
                     <div className="settings-content security-settings">

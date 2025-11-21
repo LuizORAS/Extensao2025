@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Header.css';
 import logoBarbeiros from '../assets/logoBarbeiros.png';
-import logoBarbeirosWhite from '../assets/logoBarbeiros-white.png';
+import logoBarbeirosWhite from '../assets/logoBarbeiros-WHITE.png';
 import { FaUserShield, FaChevronUp, FaChevronDown } from "react-icons/fa";
 
 const Header: React.FC = () => {
