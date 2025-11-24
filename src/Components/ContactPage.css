@@ -44,6 +44,19 @@
     min-height: 80vh; /* garantir centralização vertical mais forte */
 }
 
+/* Theme-aware hover color for social icons */
+:root {
+    --social-hover-color: #ff6b6b; /* default (dark): hover -> red */
+}
+
+html[data-theme="slight-dark"] {
+    --social-hover-color: #2563eb; /* slight-dark -> blue */
+}
+
+html[data-theme="light"] {
+    --social-hover-color: #60a5fa; /* light -> light blue */
+}
+
 .contact-link {
     color: var(--accent);
     text-decoration: underline;
@@ -105,6 +118,12 @@
 .social-item:hover .social-icon,
 .social-item:focus .social-icon {
     transform: translateY(-6px);
+    color: var(--social-hover-color);
+}
+
+/* ensure keyboard focus also shows hover color */
+.social-item:focus {
+    outline: none;
 }
 .social-label { font-size: 1rem; color: #ffffff; text-align: center }
 

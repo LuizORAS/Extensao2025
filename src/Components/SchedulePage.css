@@ -8,6 +8,18 @@
     overflow-y: auto; /* allow page scroll when content is tall */
 }
 
+/* Input color variables: default (dark theme) and override for light theme */
+:root {
+    --input-bg: rgba(255,255,255,0.02);
+    --input-border: rgba(255,255,255,0.04);
+}
+
+html[data-theme="light"] {
+    /* in light mode inputs should be white to contrast with page background */
+    --input-bg: #ffffff;
+    --input-border: rgba(0,0,0,0.12);
+}
+
 .schedule-page-content {
     position: relative;
     z-index: 1;
@@ -60,9 +72,17 @@
 
 .schedule-form { width: 100%; max-width: 640px; display:flex; flex-direction:column; gap:8px; font-size: 0.86rem }
 .schedule-form label { text-align:left; width:100%; color: var(--muted); font-weight:600; font-size: 0.86rem }
-.schedule-form input, .schedule-form select, .schedule-form textarea { width:100%; padding:6px 8px; border-radius:8px; border:1px solid rgba(255,255,255,0.04); background: rgba(255,255,255,0.02); color: var(--text); font-size: 0.86rem }
-.schedule-form select { background: rgba(0,0,0,0.12) }
-.schedule-form select option { background: rgba(0,0,0,0.12); color: var(--text) }
+.schedule-form input, .schedule-form select, .schedule-form textarea {
+    width:100%;
+    padding:6px 8px;
+    border-radius:8px;
+    border:1px solid var(--input-border);
+    background: var(--input-bg);
+    color: var(--text);
+    font-size: 0.86rem;
+}
+.schedule-form select { background: var(--input-bg) }
+.schedule-form select option { background: var(--input-bg); color: var(--text) }
 .time-row { display:flex; gap:8px; align-items:center }
 .time-row > div { flex: none }
 .time-row input { width: 100px; font-size: 0.86rem; padding: 6px 8px }

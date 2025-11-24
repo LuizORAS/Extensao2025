@@ -7,6 +7,17 @@
   box-sizing: border-box;
 }
 
+/* theme-aware input background/border variables */
+:root {
+  --input-bg: rgba(255,255,255,0.02);
+  --input-border: rgba(255,255,255,0.04);
+}
+
+html[data-theme="light"] {
+  --input-bg: #ffffff;
+  --input-border: rgba(0,0,0,0.12);
+}
+
 .auth-card {
   width: 100%;
   max-width: 560px;
@@ -44,8 +55,8 @@
 .auth-form label { font-size: 0.9rem; color: var(--muted); }
 
 .auth-form input {
-  background: rgba(255,255,255,0.02);
-  border: 1px solid rgba(255,255,255,0.04);
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
   color: var(--text);
   padding: 10px 12px;
   border-radius: 8px;

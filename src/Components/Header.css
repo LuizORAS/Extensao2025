@@ -33,7 +33,7 @@
 
 /* specific visual enlargement for the white logo variant (no layout shift) */
 .header-logo--white {
-    transform: scale(1.18); /* increased so the white logo appears larger */
+    transform: scale(1.0); /* increased so the white logo appears larger */
 }
 
 .navbar {
@@ -201,6 +201,8 @@
     align-items: center;
     min-width: 160px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    text-decoration: none;
+    color: inherit;
 }
 
 .navbar-box span {

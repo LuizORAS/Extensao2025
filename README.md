@@ -1,83 +1,118 @@
 # PlannerBarbeiro
 
-Aplicação inteligente para gestão de barbearia.
+Aplicação para gestão de barbearia — agendamentos, clientes e finanças.
 
 ## Descrição
-O PlannerBarbeiro é um sistema web moderno para organização, agendamento e controle de serviços em barbearias. Ele oferece uma interface intuitiva, visual atraente e recursos pensados para facilitar o dia a dia do barbeiro e do cliente.
+O PlannerBarbeiro é um sistema web simples e moderno para organização e controle de serviços em barbearias. Oferece gerenciamento de clientes, agendamentos, visão financeira e uma interface responsiva construída com React + Vite.
 
-## Funcionalidades
-- Página de boas-vindas com imagem de fundo e destaque para o nome do sistema
-- Navegação entre páginas (Home, Serviços, Sobre, Contato, Perfil)
-- Layout responsivo com header fixo no topo e footer fixo na base
-- Botões de navegação e ações principais
-- Utilização de React, Vite e React Router DOM
+## Principais funcionalidades
+- Agendamento de serviços com verificação de conflitos
+- Gestão de clientes
+- Visão geral financeira e estatísticas
+- Páginas de autenticação (login/recuperação/criação)
+- Layout responsivo e tema (dark / light / slight-dark)
 
+## Pré-requisitos
+- Node.js 16+ (recomendado 18+)
+- npm (ou pnpm/yarn)
 
-## Como rodar o projeto
+## Variáveis de ambiente
+Crie um arquivo `.env` na raiz do frontend (opcional) para apontar o backend durante o desenvolvimento:
 
-### Front-end
-1. Instale as dependências:
-  ```bash
-  npm install
-  ```
+```
+VITE_API_URL=http://localhost:4000
+```
+
+O backend, por padrão, escuta em `http://localhost:4000`.
+
+## Rodando em desenvolvimento
+
+### Frontend
+1. Instale dependências:
+
+```powershell
+npm install
+```
+
+2. Verifique tipos TypeScript (opcional, útil para contribuidores):
+
+```powershell
+npx tsc --noEmit
+```
+
+3. Inicie o dev server:
+
+```powershell
+npm run dev
+```
+
+Abra `http://localhost:5173` no navegador.
+
+### Backend
+1. Entre na pasta do servidor e instale dependências:
+
+```powershell
+cd server
+npm install
+```
+
 2. Inicie o servidor de desenvolvimento:
-  ```bash
-  npm run dev
-  ```
-3. Acesse `http://localhost:5173` no navegador
 
-### Back-end (server)
-1. Acesse a pasta `server`:
-  ```bash
-  cd server
-  ```
-2. Instale as dependências do backend:
-  ```bash
-  npm install
-  ```
-3. Inicie o servidor de desenvolvimento:
-  ```bash
-  npm run dev
-  ```
-  O backend estará disponível em `http://localhost:4000`
+```powershell
+npm run dev
+```
 
-#### Banco de dados
-- O banco de dados é salvo no arquivo `server/dev.db` (SQLite).
-- Para transferir o backend para outro computador, basta copiar o arquivo `dev.db` junto com os arquivos do backend e rodar `npm install` e `npm run dev` na pasta `server`.
+O backend estará disponível em `http://localhost:4000`.
 
-#### Endpoints principais
-- `/api/clients` — Gerenciamento de clientes
-- `/api/appointments` — Agendamentos
-- `/api/budget` — Orçamentos
-- `/api/login` — Usuários/login
+## Banco de dados
+- O backend usa SQLite por padrão. O arquivo do banco é `server/dev.db`.
+- Para mover o backend para outra máquina, copie `server/dev.db` junto dos arquivos do servidor.
 
----
+## Endpoints principais
+- `GET /api/clients` — listar/gerenciar clientes
+- `GET|POST /api/appointments` — listar e criar agendamentos
+- `PUT|DELETE /api/appointments/:id` — atualizar/remover agendamento
+- `POST /api/login` — autenticação
 
-## Estrutura de pastas
+## Build / Produção
+- Para gerar o build do frontend:
+
+```powershell
+npm run build
+```
+
+- Os arquivos gerados ficam em `dist/` por padrão; sirva-os com um servidor estático (nginx, serve, express) ou integre ao backend conforme necessário.
+
+## Troubleshooting rápido
+- Se as cores/estilos não aparecerem como esperado, limpe o cache do navegador e reinicie o dev server.
+- Se ocorrerem erros de tipos, rode `npx tsc --noEmit` para localizar problemas TypeScript.
+- Verifique `VITE_API_URL` em `.env` se o frontend não conseguir alcançar o backend.
+
+## Estrutura de pastas (resumida)
 ```
 PlannerBarbeiro/
   src/
     Components/
-      Header.tsx
-      Footer.tsx
-      WelcomePage.tsx
-      ...
     assets/
-      logoBarbeiros.png
-  index.html
+  server/
+    dev.db
+    index.js
   package.json
   README.md
-  ...
 ```
 
 ## Tecnologias
-- React
+- React + TypeScript
 - Vite
-- TypeScript
-- React Router DOM
+- Express (backend)
+- SQLite (backend)
+
+## Contribuindo
+- Abra uma issue descrevendo o bug ou feature.
+- Faça um fork, crie uma branch com sua alteração e abra um PR.
 
 ## Autor
 LuizORAS
 
 ---
-© 2023 PlannerBarbeiro. Todos os direitos reservados.
+© 2025 PlannerBarbeiro. Todos os direitos reservados.

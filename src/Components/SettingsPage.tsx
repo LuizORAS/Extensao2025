@@ -5,9 +5,9 @@ import { FaUser } from 'react-icons/fa';
 import "./SettingsPage.css";
 
 const OPTIONS = [
-    { id: 'profile', label: 'Profile' },
-    { id: 'appearance', label: 'Appearance' },
-    { id: 'security', label: 'Security' },
+    { id: 'profile', label: 'Perfil' },
+    { id: 'appearance', label: 'Aparência' },
+    { id: 'security', label: 'Segurança' },
 ];
 
 const SettingsPage: React.FC = () => {
@@ -216,7 +216,7 @@ const SettingsPage: React.FC = () => {
             case 'profile':
                 return (
                     <div className="settings-content profile-settings">
-                        <h2>Profile</h2>
+                        <h2>Perfil</h2>
                         <div className="profile-grid">
                             <div className="profile-left">
                                 <div className="avatar-large-wrap">
@@ -254,7 +254,7 @@ const SettingsPage: React.FC = () => {
             case 'appearance':
                 return (
                     <div className="settings-content">
-                        <h2>Appearance</h2>
+                        <h2>Aparência</h2>
                         <label className="settings-label">
                             Tema
                             <select
@@ -278,7 +278,7 @@ const SettingsPage: React.FC = () => {
             case 'security':
                 return (
                     <div className="settings-content security-settings">
-                        <h2>Security</h2>
+                        <h2>Segurança</h2>
 
                         <div className="security-grid">
                             <div className="security-block security-email">
@@ -292,7 +292,7 @@ const SettingsPage: React.FC = () => {
                                         placeholder="seu@exemplo.com"
                                     />
                                 </label>
-                                <p className="muted">O email é usado para recuperação e notificações (persistido localmente neste demo).</p>
+                                <p className="muted">O email é usado para recuperação e notificações </p>
                             </div>
 
                             <div className="security-block security-password">

@@ -154,18 +154,18 @@ const Header: React.FC = () => {
             </div>
             <nav className="navbar">
                     <div className="navbar-boxes">
-                        <div className="navbar-box">
-                            <span>Agendamentos essa semana</span>
-                            <span className="navbar-counter">{countWeek}</span>
-                        </div>
-                        <div className="navbar-box">
-                            <span>Faturamento esperado essa semana</span>
-                            <span className="navbar-counter">{new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(expectedWeekRevenue)}</span>
-                        </div>
-                        <div className="navbar-box">
-                            <span>Faturamento total esse mês</span>
-                            <span className="navbar-counter">{new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(monthRevenue)}</span>
-                        </div>
+                            <Link to="/schedule" className="navbar-box" aria-label="Ir para Agendamentos">
+                                <span>Agendamentos essa semana</span>
+                                <span className="navbar-counter">{countWeek}</span>
+                            </Link>
+                            <Link to="/financial" className="navbar-box" aria-label="Ir para Financeiro">
+                                <span>Faturamento esperado essa semana</span>
+                                <span className="navbar-counter">{new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(expectedWeekRevenue)}</span>
+                            </Link>
+                            <Link to="/financial" className="navbar-box" aria-label="Ir para Financeiro">
+                                <span>Faturamento total esse mês</span>
+                                <span className="navbar-counter">{new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(monthRevenue)}</span>
+                            </Link>
                     </div>
             </nav>
             <div className="sidebar">
@@ -197,7 +197,7 @@ const Header: React.FC = () => {
                         className={`dropdown-menu ${isOpen ? 'open' : ''}`}
                         onClick={(e) => e.stopPropagation()}
                     >
-                        <Link to="/settings" className="dropdown-item" onClick={() => setIsOpen(false)}>Settings</Link>
+                        <Link to="/settings" className="dropdown-item" onClick={() => setIsOpen(false)}>Configurações</Link>
                         <Link to="/logout" className="dropdown-item" onClick={() => setIsOpen(false)}>Logout</Link>
                     </div>
                 </div>

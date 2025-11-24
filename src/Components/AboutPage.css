@@ -35,8 +35,20 @@
     width: 100%;
     max-width: 700px;
     background: transparent;
-    color: var(--text);
+    color: #ffffff;
     text-align: center;
     padding: 40px 20px;
     border-radius: 16px;
+}
+
+/* Slightly larger H1 for better hierarchy */
+.about-page-content h1 {
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+}
+
+/* Force white text for all elements inside the About page to ensure legibility */
+.about-page-content,
+.about-page-content * {
+    color: #ffffff !important;
 }

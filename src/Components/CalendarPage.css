@@ -7,6 +7,17 @@
     justify-content: center;
 }
 
+/* Input/button background variables (theme-aware) */
+:root {
+    --input-bg: rgba(255,255,255,0.02);
+    --input-border: rgba(255,255,255,0.06);
+}
+
+html[data-theme="light"] {
+    --input-bg: #ffffff;
+    --input-border: rgba(0,0,0,0.12);
+}
+
 .calendarpage-bg {
     position: absolute;
     top: 0; left: 0; width: 100%; height: 100%;
@@ -25,8 +36,14 @@
 
 .calendar-card-header { display: flex; align-items: center; justify-content: space-between; gap: 12px }
 .calendar-card-header h2 { margin: 0; }
-.filter-select { background: var(--card-bg); border: 1px solid rgba(255,255,255,0.06); color: var(--text); padding: 8px 10px; border-radius: 8px }
-.filter-select option { background: var(--card-bg); color: var(--text) }
+.filter-select {
+    background: var(--input-bg);
+    border: 1px solid var(--input-border);
+    color: var(--text);
+    padding: 8px 10px;
+    border-radius: 8px;
+}
+.filter-select option { background: var(--input-bg); color: var(--text) }
 
 .appointments-list { margin-top: 8px; max-height: 60vh; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; padding-right: 6px }
 .appointment-row { background: rgba(255,255,255,0.03); border-radius: 10px; padding: 12px; border: 1px solid rgba(255,255,255,0.03) }

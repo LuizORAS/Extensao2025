@@ -88,6 +88,11 @@
     width: 100%;
     pointer-events: none;
 }
+
+/* Theme override: force white text for split cards in light theme as requested */
+html[data-theme="light"] .split-card-text {
+    color: #ffffff;
+}
 .overviewclientpage-bg {
     position: absolute;
     top: 0;
